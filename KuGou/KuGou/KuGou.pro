@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-03-09T20:41:11
+# Project created by QtCreator 2020-03-10T11:47:24
 #
 #-------------------------------------------------
 
@@ -10,6 +10,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = KuGou
 TEMPLATE = app
+
+include(mainWnd/mainWnd.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -24,8 +26,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp
+        main.cpp
 
-HEADERS += \
-        mainwindow.h
+HEADERS +=
