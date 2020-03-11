@@ -11,7 +11,10 @@ mainWnd::mainWnd(QWidget *parent)
     setMinimumSize(1008, 698);
 
     main_widget_.setStyleSheet("QLabel{color:white;}" "QWidget{background:transparent;}");
-    main_widget_.setStyleSheet(QString::fromLocal8Bit("border-image:url(:/image/skin/д╛хо.jpg);"));
+    //main_widget_.setStyleSheet(QString::fromLocal8Bit("border-image:url(:/image/skin/д╛хо.jpg);"));
+    main_widget_.setSkinPic(QString::fromLocal8Bit(":/image/skin/д╛хо.jpg"));
+
+    initLayout();
 }
 
 mainWnd::~mainWnd() {
@@ -27,3 +30,17 @@ mainWnd& mainWnd::getInstance() {
 
     return *main_wnd_;
 }
+
+void mainWnd::initLayout() {
+    QVBoxLayout *vlyout = new QVBoxLayout;
+    if (!vlyout) return;
+
+    //vlyout->addWidget(&top_widget_);
+    //vlyout->addWidget(&mid_widget_);
+    //vlyout->addWidget(&bottom_widget_);
+    //vlyout->setSpacing(0);
+    //vlyout->setContentsMargins(0, 0, 0, 0);
+
+    main_widget_.setLayout(vlyout);
+}
+

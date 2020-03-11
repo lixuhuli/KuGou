@@ -2,6 +2,7 @@
 #define BASEWINDOW_H
 
 #include "dragautosizewnd.h"
+#include "widget.h"
 
 class baseWindow : public dragAutoSizeWnd {
     Q_OBJECT
@@ -10,7 +11,7 @@ public:
     explicit baseWindow(QWidget *parent = nullptr);
     virtual~baseWindow() {}
 
-    QWidget main_widget_;
+    Widget main_widget_;
 protected:
     virtual void paintEvent(QPaintEvent *);
 

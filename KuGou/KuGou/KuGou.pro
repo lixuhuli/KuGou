@@ -13,6 +13,7 @@ TEMPLATE = app
 
 include(mainWnd/mainWnd.pri)
 include(baseWnd/baseWnd.pri)
+include(topWidget/topWidget.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
