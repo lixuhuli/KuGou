@@ -23,7 +23,7 @@ void dragAutoSizeWnd::setBorder(int border) {
 void dragAutoSizeWnd::mouseMoveRect(const QPoint &pt) {
     auto p = mapFromGlobal(pt);
 
-    if (cursol_pressed_state_ == UnPressed) {
+    if (cursol_pressed_state_ != WinBorder) {
         if (p.x() > width() - border_ && p.y() < height() - border_ && p.y() > border_) {
             // right side
             setCursor(Qt::SizeHorCursor);
@@ -74,10 +74,6 @@ void dragAutoSizeWnd::mouseMoveRect(const QPoint &pt) {
             cursol_move_state_ = Default;
             setCursor(Qt::ArrowCursor);
         }
-    }
-    else if (cursol_pressed_state_ == WinRegion) {
-        cursol_move_state_ = Default;
-        setCursor(Qt::ArrowCursor);
     }
     else if (cursol_pressed_state_ == WinBorder) {
         switch (cursol_move_state_) {
@@ -211,6 +207,8 @@ void dragAutoSizeWnd::mousePressEvent(QMouseEvent *event) {
 void dragAutoSizeWnd::mouseReleaseEvent(QMouseEvent *event) {
     if (!event) return;
 
+    mouse_pos_.setX(0);
+    mouse_pos_.setY(0);
     cursol_pressed_state_ = UnPressed;
     setCursor(Qt::PointingHandCursor);
 }
