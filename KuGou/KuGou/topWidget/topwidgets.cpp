@@ -63,9 +63,142 @@ void topWidgets::initWidget() {
     m_btnregister.setText(QString::fromLocal8Bit("×¢²á"));
     main_yout_->addWidget(&m_btnregister);
 
+    main_yout_->addSpacing(190);
+    main_yout_->addSpacerItem(new QSpacerItem(80, 30, QSizePolicy::Maximum));//ÉèÖÃËü×î´óÅòÕÍ£¡£¡£¡
 
 
-    //main_yout_->addSpacing(190);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    QPushButton *m_btnreturn = new QPushButton(this);
+    m_btnreturn->setFixedSize(20, 20);
+    m_btnreturn->setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_ return(1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_ return(2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_ return(3).png);}");
+    m_btnreturn->setCursor(QCursor(Qt::PointingHandCursor));
+    main_yout_->addWidget(m_btnreturn);
+
+    main_yout_->addSpacing(20);
+
+    QPushButton *m_btnrefresh = new QPushButton(this);
+    m_btnrefresh->setFixedSize(20, 20);
+    m_btnrefresh->setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_refresh(1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_refresh(2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_refresh(3).png);}");
+    m_btnrefresh->setCursor(QCursor(Qt::PointingHandCursor));
+    main_yout_->addWidget(m_btnrefresh);
+
+    main_yout_->addSpacing(20);
+
+    m_lineEdit.setMinimumSize(260, 26);
+    m_lineEdit.setMaximumSize(320, 26);
+    m_lineEdit.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_lineEdit.setStyleSheet("QLineEdit{border-radius:13px;background:rgb(255,255,255,180);}");
+    m_lineEdit.setContextMenuPolicy(Qt::NoContextMenu);
+
+    QHBoxLayout *pSearchLayout = new QHBoxLayout();
+    pSearchLayout->setAlignment(Qt::AlignRight);
+    pSearchLayout->setSpacing(0);
+    pSearchLayout->setContentsMargins(0, 0, 15, 0);
+    m_lineEdit.setLayout(pSearchLayout);
+
+    QPushButton *serbtn = new QPushButton();
+    serbtn->setFixedSize(16, 16);
+    serbtn->setStyleSheet("QPushButton{background:transparent;border-image: url(:/image/topwidget/btn_search (1).png);}"
+        "QPushButton::hover{border-image: url(:/image/topwidget/btn_search (2).png);}"
+        "QPushButton::pressed{border-image: url(:/image/topwidget/btn_search (3).png);}");
+    serbtn->setCursor(QCursor(Qt::PointingHandCursor));
+    pSearchLayout->addWidget(serbtn);
+
+    m_lineEdit.setPlaceholderText(QString::fromLocal8Bit("ÖÜ½ÜÂ×-¶«·çÆÆ"));
+    QMargins margins = m_lineEdit.textMargins();
+    m_lineEdit.setTextMargins(margins.left() + 15, margins.top(), serbtn->width() + 15, margins.bottom());
+    main_yout_->addWidget(&m_lineEdit);
+
+    main_yout_->addSpacerItem(new QSpacerItem(110, 30, QSizePolicy::Expanding));//ÅòÕÍ
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    QHBoxLayout *right_yout = new QHBoxLayout;
+    m_btntool.setFixedSize(16, 16);
+    m_btntool.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_tool (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_tool (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_tool (3).png);}");
+    m_btntool.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btntool);
+
+    m_btnplaycard.setFixedSize(16, 16);
+    m_btnplaycard.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_playcard (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_playcard (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_playcard (3).png);}");
+    m_btnplaycard.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnplaycard);
+
+    m_btngame.setFixedSize(16, 16);
+    m_btngame.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_game (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_game (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_game (3).png);}");
+    m_btngame.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btngame);
+
+    m_btnmessage.setFixedSize(16, 16);
+    m_btnmessage.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_message (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_message (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_message (3).png);}");
+    m_btnmessage.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnmessage);
+
+    m_btnskin.setFixedSize(16, 16);
+    m_btnskin.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_skin (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_skin (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_skin (3).png);}");
+    m_btnskin.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnskin);
+
+    m_btnsetting.setFixedSize(16, 16);
+    m_btnsetting.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_setting (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_setting (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_setting (3).png);}");
+    m_btnsetting.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnsetting);
+
+    QLabel*label3 = new QLabel("Ø­", this);
+    label3->setFixedSize(6, 16);
+    label3->setStyleSheet("color:rgb(255,255,255,50);");
+    label3->adjustSize();
+    right_yout->addWidget(label3);
+
+    m_btnmobile.setFixedSize(16, 16);
+    m_btnmobile.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_mobile (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_mobile (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_mobile (3).png);}");
+    m_btnmobile.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnmobile);
+
+    m_btnminiframe.setFixedSize(16, 16);
+    m_btnminiframe.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_miniframe (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_miniframe (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_miniframe (3).png);}");
+    m_btnminiframe.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnminiframe);
+
+    m_btnmini.setFixedSize(16, 16);
+    m_btnmini.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_mini (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_mini (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_mini (3).png);}");
+    m_btnmini.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnmini);
+
+    m_btnexit.setFixedSize(16, 16);
+    m_btnexit.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_close (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/topwidget/btn_close (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/topwidget/btn_close (3).png);}");
+    m_btnexit.setCursor(QCursor(Qt::PointingHandCursor));
+    right_yout->addWidget(&m_btnexit);
+
+    right_yout->setSpacing(12);
+    right_yout->setContentsMargins(0, 0, 0, 0);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    main_yout_->addLayout(right_yout);
 
     main_yout_->setSpacing(0);
     main_yout_->setContentsMargins(16, 0, 15, 0);
