@@ -188,7 +188,7 @@ void topWidgets::initWidget() {
     m_btnmini.setCursor(QCursor(Qt::PointingHandCursor));
     right_yout->addWidget(&m_btnmini);
 
-    m_btnexit.setFixedSize(16, 16);
+    m_btnexit.setFixedSize(18, 18);
     m_btnexit.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_close (1).png);}"
         "QPushButton::hover{border-image:url(:/image/topwidget/btn_close (2).png);}"
         "QPushButton::pressed{border-image:url(:/image/topwidget/btn_close (3).png);}");
