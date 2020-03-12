@@ -161,11 +161,7 @@ void topWidgets::initWidget() {
     m_btnsetting.setCursor(QCursor(Qt::PointingHandCursor));
     right_yout->addWidget(&m_btnsetting);
 
-    QLabel*label3 = new QLabel("ح", this);
-    label3->setFixedSize(6, 16);
-    label3->setStyleSheet("color:rgb(255,255,255,50);");
-    label3->adjustSize();
-    right_yout->addWidget(label3);
+    right_yout->addSpacing(18);
 
     m_btnmobile.setFixedSize(16, 16);
     m_btnmobile.setStyleSheet("QPushButton{border-image:url(:/image/topwidget/btn_mobile (1).png);}"
