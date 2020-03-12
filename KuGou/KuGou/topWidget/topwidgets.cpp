@@ -10,7 +10,7 @@ topWidgets::topWidgets(QWidget *parent)
 }
 
 void topWidgets::mouseMoveEvent(QMouseEvent* e) {
-    __super::mouseMoveEvent(e);
+    baseWidget::mouseMoveEvent(e);
 }
 
 void topWidgets::initWidget() {

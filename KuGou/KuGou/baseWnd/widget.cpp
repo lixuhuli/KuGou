@@ -12,7 +12,7 @@ void Widget::setSkinPic(const QString &skin) {
 }
 
 void Widget::paintEvent(QPaintEvent *e) {
-    __super::paintEvent(e);
+    QWidget::paintEvent(e);
 
     if (skin_pic_.isNull()) return;
 
@@ -30,7 +30,7 @@ void Widget::paintEvent(QPaintEvent *e) {
 }
 
 void Widget::resizeEvent(QResizeEvent *e) {
-    __super::resizeEvent(e);
+    QWidget::resizeEvent(e);
     //updateSkin();
 }
 

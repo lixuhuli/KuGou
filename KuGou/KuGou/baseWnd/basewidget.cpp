@@ -12,18 +12,18 @@ void baseWidget::paintEvent(QPaintEvent *e) {
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-    __super::paintEvent(e);
+    QWidget::paintEvent(e);
 }
 
 void baseWidget::mousePressEvent(QMouseEvent *e) {
-    __super::mousePressEvent(e);
+    QWidget::mousePressEvent(e);
 }
 
 void baseWidget::mouseMoveEvent(QMouseEvent *e) {
     mainWnd::getInstance().mouseMoveEvent(e);
-    __super::mouseMoveEvent(e);
+    QWidget::mouseMoveEvent(e);
 }
 
 void baseWidget::mouseReleaseEvent(QMouseEvent *e) {
-    __super::mouseReleaseEvent(e);
+    QWidget::mouseReleaseEvent(e);
 }

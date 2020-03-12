@@ -60,5 +60,5 @@ void mainWnd::mouseDoubleClickEvent(QMouseEvent *e) {
                 showNormal();
     }
     
-    __super::mouseDoubleClickEvent(e);
+    baseWindow::mouseDoubleClickEvent(e);
 }

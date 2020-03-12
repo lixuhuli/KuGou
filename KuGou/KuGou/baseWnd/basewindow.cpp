@@ -19,7 +19,7 @@ baseWindow::baseWindow(QWidget *parent /*= nullptr*/)
 }
 
 void baseWindow::paintEvent(QPaintEvent *e) {
-    __super::paintEvent(e);
+    dragAutoSizeWnd::paintEvent(e);
 
     QPainter painter(this);
     // draw shadow margin
