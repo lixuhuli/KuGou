@@ -33,4 +33,5 @@ SOURCES += \
 HEADERS +=
 
 RESOURCES += \
-    res_main.qrc
+    res_main.qrc \
+    res_topwidget.qrc

@@ -13,7 +13,7 @@ baseWindow::baseWindow(QWidget *parent /*= nullptr*/)
 
     if (lyout) {
         lyout->addWidget(&main_widget_);
-        lyout->setContentsMargins(4, 4, 4, 4);
+        lyout->setContentsMargins(contents_margins_.left(), contents_margins_.top(), contents_margins_.width(), contents_margins_.height());
         setLayout(lyout);
     }
 }

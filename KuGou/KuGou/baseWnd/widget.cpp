@@ -13,6 +13,7 @@ void Widget::setSkinPic(const QString &skin) {
 
 void Widget::paintEvent(QPaintEvent *e) {
     __super::paintEvent(e);
+
     if (skin_pic_.isNull()) return;
 
     QPainter painter(this);

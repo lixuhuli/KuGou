@@ -210,5 +210,8 @@ void dragAutoSizeWnd::mouseReleaseEvent(QMouseEvent *event) {
     mouse_pos_.setX(0);
     mouse_pos_.setY(0);
     cursol_pressed_state_ = UnPressed;
-    setCursor(Qt::PointingHandCursor);
+
+    if (event->button() == Qt::LeftButton) {
+        setCursor(Qt::PointingHandCursor);
+    }
 }
