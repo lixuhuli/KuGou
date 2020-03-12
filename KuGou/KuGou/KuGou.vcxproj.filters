@@ -56,6 +56,9 @@
     <ClCompile Include="baseWnd\widget.cpp">
       <Filter>baseWnd</Filter>
     </ClCompile>
+    <ClCompile Include="baseWnd\basewidget.cpp">
+      <Filter>baseWnd</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -72,6 +75,9 @@
     </QtMoc>
     <QtMoc Include="topWidget\topwidgets.h">
       <Filter>topWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="baseWnd\basewidget.h">
+      <Filter>baseWnd</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -4,15 +4,16 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLineEdit>
+#include "baseWnd/basewidget.h"
 
 class QPushButton;
-class topWidgets : public QWidget {
+class topWidgets : public baseWidget {
     Q_OBJECT
 public:
     explicit topWidgets(QWidget *parent = nullptr);
+    virtual ~topWidgets() {}
 
 protected:
-    virtual void paintEvent(QPaintEvent *e) override;
     virtual void mouseMoveEvent(QMouseEvent*);
 
 signals:

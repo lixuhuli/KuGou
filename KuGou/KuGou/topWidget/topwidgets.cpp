@@ -1,27 +1,15 @@
 #include "topwidgets.h"
-#include <QStyleOption>
-#include <QPainter>
 #include <QBoxLayout>
-#include "mainWnd/mainwnd.h"
 #include <QLabel>
 
 topWidgets::topWidgets(QWidget *parent)
-    : QWidget(parent) {
+    : baseWidget(parent) {
     setStyleSheet("TopWidgets{background:transparent;}");
     setMouseTracking(true);
     initWidget();
 }
 
-void topWidgets::paintEvent(QPaintEvent *e) {
-    QStyleOption opt;
-    opt.init(this);
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-    __super::paintEvent(e);
-}
-
 void topWidgets::mouseMoveEvent(QMouseEvent* e) {
-    mainWnd::getInstance().mouseMoveEvent(e);
     __super::mouseMoveEvent(e);
 }
 
@@ -61,6 +49,7 @@ void topWidgets::initWidget() {
     m_btnregister.setFixedSize(26, 24);
     m_btnregister.setStyleSheet("QPushButton{background:transparent;color:white;font-family:ËÎÌå;font-size:12px;}");
     m_btnregister.setText(QString::fromLocal8Bit("×¢²á"));
+    m_btnregister.setCursor(QCursor(Qt::PointingHandCursor));
     main_yout_->addWidget(&m_btnregister);
 
     main_yout_->addSpacing(190);

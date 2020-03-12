@@ -7,6 +7,7 @@ class Widget : public QWidget {
     Q_OBJECT
 public:
     explicit Widget(QWidget *parent = nullptr);
+    virtual ~Widget() {}
 
     const QString& skinPath() { return skin_path_; }
 

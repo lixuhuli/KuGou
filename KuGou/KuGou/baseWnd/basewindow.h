@@ -9,7 +9,7 @@ class baseWindow : public dragAutoSizeWnd {
 
 public:
     explicit baseWindow(QWidget *parent = nullptr);
-    virtual~baseWindow() {}
+    virtual ~baseWindow() {}
 
     Widget main_widget_;
 protected:

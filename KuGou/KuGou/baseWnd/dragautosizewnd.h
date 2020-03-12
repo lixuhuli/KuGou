@@ -13,7 +13,7 @@ class dragAutoSizeWnd : public QWidget{
     Q_OBJECT
 public:
     explicit dragAutoSizeWnd(QWidget *parent = nullptr);
-    virtual~dragAutoSizeWnd() {}
+    virtual ~dragAutoSizeWnd() {}
 
     inline void setBorder(int border);
 

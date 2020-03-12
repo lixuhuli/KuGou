@@ -7,7 +7,7 @@
 #include "topWidget/topwidgets.h"
 
 class mainWnd : public baseWindow {
-    friend class topWidgets;
+    friend class baseWidget;
     Q_OBJECT
 public:
     static mainWnd& getInstance();
