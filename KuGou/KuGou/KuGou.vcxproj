@@ -208,6 +208,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <QtRcc Include="res_bottomwidget.qrc" />
     <QtRcc Include="res_main.qrc">
       <FileType>Document</FileType>
     </QtRcc>

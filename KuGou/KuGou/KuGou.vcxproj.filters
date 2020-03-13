@@ -113,5 +113,8 @@
     <QtRcc Include="res_topwidget.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="res_bottomwidget.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

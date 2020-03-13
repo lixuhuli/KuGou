@@ -31,7 +31,7 @@ void topWidgets::InitUi() {
     main_yout_->addSpacing(11);
 
     btn_login_.setFixedSize(26, 24);
-    btn_login_.setStyleSheet("QPushButton{background:transparent;color:white;font-family:ËÎÌå;font-size:12px;}");
+    btn_login_.setStyleSheet(QString::fromLocal8Bit("QPushButton{background:transparent;color:white;font-family:ËÎÌå;font-size:12px;}"));
     btn_login_.setText(QString::fromLocal8Bit("µÇÂ½"));
     btn_login_.setCursor(QCursor(Qt::PointingHandCursor));
     main_yout_->addWidget(&btn_login_);
@@ -46,7 +46,7 @@ void topWidgets::InitUi() {
 
 
     m_btnregister.setFixedSize(26, 24);
-    m_btnregister.setStyleSheet("QPushButton{background:transparent;color:white;font-family:ËÎÌå;font-size:12px;}");
+    m_btnregister.setStyleSheet(QString::fromLocal8Bit("QPushButton{background:transparent;color:white;font-family:ËÎÌå;font-size:12px;}"));
     m_btnregister.setText(QString::fromLocal8Bit("×¢²á"));
     m_btnregister.setCursor(QCursor(Qt::PointingHandCursor));
     main_yout_->addWidget(&m_btnregister);
@@ -195,4 +195,5 @@ void topWidgets::InitConnect() {
     if (!mainWnd) return;
 
     connect(&m_btnexit, SIGNAL(clicked(bool)), mainWnd, SLOT(close()));
+    connect(&m_btnmini, SIGNAL(clicked(bool)), mainWnd, SLOT(showMinimized()));
 }
