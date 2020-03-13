@@ -42,6 +42,9 @@
     <Filter Include="bottomWidget">
       <UniqueIdentifier>{3b729af0-7a1f-46bb-b5e4-59f9ba8de6ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="customizeCtrl">
+      <UniqueIdentifier>{8ca0464b-e79c-430e-8f2f-fdaef0018c9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     <ClCompile Include="bottomWidget\bottomwidgets.cpp">
       <Filter>bottomWidget</Filter>
     </ClCompile>
+    <ClCompile Include="customizeCtrl\slider.cpp">
+      <Filter>customizeCtrl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -96,6 +102,9 @@
     </QtMoc>
     <QtMoc Include="bottomWidget\bottomwidgets.h">
       <Filter>bottomWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="customizeCtrl\slider.h">
+      <Filter>customizeCtrl</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,8 @@
 #include <QBoxLayout>
 
 bottomWidgets::bottomWidgets(QWidget *parent) 
-    : baseWidget(parent) {
+    : baseWidget(parent)
+    , play_slider_(Qt::Horizontal, this) {
     InitUi();
     InitConnect();
 }
@@ -71,22 +72,17 @@ void bottomWidgets::InitUi() {
 
     layout2_1->addWidget(&lal_bposition_);
 
-    main_slider_.installEventFilter(this);
-    main_slider_.setRange(0, 1000);
-    main_slider_.setMinimumSize(403, 12);
-    main_slider_.setMaximumHeight(12);
-    main_slider_.setCursor(Qt::PointingHandCursor);
-    main_slider_.setOrientation(Qt::Horizontal);  // 水平方向
-    main_slider_.setMouseTracking(true);
-    main_slider_.setStyleSheet("QSlider::groove:horizontal{border-radius:2px;height:3px;}"
+    play_slider_.installEventFilter(this);
+    play_slider_.setRange(0, 1000);
+    play_slider_.setMinimumWidth(403);
+    play_slider_.setFixedHeight(12);
+    play_slider_.setStyleSheet("QSlider::groove:horizontal{border-radius:2px;height:3px;}"
         "QSlider::sub-page:horizontal{background:rgb(255, 255, 160);}"
         "QSlider::add-page:horizontal{background:rgb(200,200,209);}"
         "QSlider::handle:horizontal{background:rgb(255, 255, 160);width:8px;border-radius:4px;margin:-3px 0px -3px 0px;}");
 
-
-
     layout2->addLayout(layout2_1);
-    layout2->addWidget(&main_slider_);
+    layout2->addWidget(&play_slider_);
     layout2->setSpacing(0);
     layout2->setContentsMargins(0, 0, 0, 10);
 

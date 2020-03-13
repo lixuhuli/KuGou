@@ -180,6 +180,7 @@
     <ClCompile Include="baseWnd\dragautosizewnd.cpp" />
     <ClCompile Include="baseWnd\widget.cpp" />
     <ClCompile Include="bottomWidget\bottomwidgets.cpp" />
+    <ClCompile Include="customizeCtrl\slider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainWnd\mainwnd.cpp" />
     <ClCompile Include="middleWidget\middlewidgets.cpp" />
@@ -234,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="bottomWidget\bottomwidgets.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="customizeCtrl\slider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

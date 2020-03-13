@@ -1,10 +1,10 @@
 #ifndef BOTTOMWIDGETS_H
 #define BOTTOMWIDGETS_H
 
-#include "baseWnd/basewidget.h"
-#include <QPushButton>
-#include <QSlider>
 #include <QLabel>
+#include <QPushButton>
+#include "baseWnd/basewidget.h"
+#include "customizeCtrl/slider.h"
 
 class bottomWidgets : public baseWidget {
     Q_OBJECT
@@ -25,7 +25,7 @@ private:
     QPushButton m_btnprevious;
     QPushButton m_btnPlay;
 
-    QSlider main_slider_;
+    Slider play_slider_;
 
     QLabel lbl_playname_;
     QLabel lal_bposition_;
