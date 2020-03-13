@@ -5,19 +5,22 @@
 #include <QMutex>
 #include "baseWnd/basewindow.h"
 #include "topWidget/topwidgets.h"
+#include "middleWidget/middlewidgets.h"
+#include "bottomWidget/bottomwidgets.h"
 
 class mainWnd : public baseWindow {
     friend class baseWidget;
     Q_OBJECT
 public:
-    static mainWnd& getInstance();
+    static mainWnd* getInstance();
 
 public:
     mainWnd(QWidget *parent = 0);
     virtual ~mainWnd();
 
 protected:
-    void initLayout();
+    void InitUi();
+    void InitConnect();
 
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *) override;
@@ -27,8 +30,9 @@ private:
     static QAtomicPointer<mainWnd> main_wnd_;      // <使用原子指针,默认初始化为0。
 
     topWidgets top_widget_;
-    QWidget mid_widget_;
-    QWidget bottom_widget_;
+    middleWidgets mid_widget_;
+    bottomWidgets bottom_widget_;
+
 };
 
 #endif // MAINWND_H

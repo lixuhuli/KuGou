@@ -36,6 +36,12 @@
     <Filter Include="topWidget">
       <UniqueIdentifier>{40f12b1b-24f0-4616-a280-37916dcdb18b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="middleWidget">
+      <UniqueIdentifier>{d695c3dd-39a7-49a2-8c3a-63a073467430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bottomWidget">
+      <UniqueIdentifier>{3b729af0-7a1f-46bb-b5e4-59f9ba8de6ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +65,12 @@
     <ClCompile Include="baseWnd\basewidget.cpp">
       <Filter>baseWnd</Filter>
     </ClCompile>
+    <ClCompile Include="middleWidget\middlewidgets.cpp">
+      <Filter>middleWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="bottomWidget\bottomwidgets.cpp">
+      <Filter>bottomWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -78,6 +90,12 @@
     </QtMoc>
     <QtMoc Include="baseWnd\basewidget.h">
       <Filter>baseWnd</Filter>
+    </QtMoc>
+    <QtMoc Include="middleWidget\middlewidgets.h">
+      <Filter>middleWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="bottomWidget\bottomwidgets.h">
+      <Filter>bottomWidget</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

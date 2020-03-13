@@ -20,7 +20,7 @@ void baseWidget::mousePressEvent(QMouseEvent *e) {
 }
 
 void baseWidget::mouseMoveEvent(QMouseEvent *e) {
-    mainWnd::getInstance().mouseMoveEvent(e);
+    mainWnd::getInstance()->mouseMoveEvent(e);
     QWidget::mouseMoveEvent(e);
 }
 

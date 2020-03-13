@@ -21,7 +21,8 @@ signals:
 public slots:
 
 protected:
-    void initWidget();
+    void InitUi();
+    void InitConnect();
 
 private:
     QPushButton btn_login_;

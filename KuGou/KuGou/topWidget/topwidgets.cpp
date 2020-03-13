@@ -4,16 +4,15 @@
 
 topWidgets::topWidgets(QWidget *parent)
     : baseWidget(parent) {
-    setStyleSheet("TopWidgets{background:transparent;}");
-    setMouseTracking(true);
-    initWidget();
+    InitUi();
+    InitConnect();
 }
 
 void topWidgets::mouseMoveEvent(QMouseEvent* e) {
     baseWidget::mouseMoveEvent(e);
 }
 
-void topWidgets::initWidget() {
+void topWidgets::InitUi() {
     setMinimumHeight(50);
     setMaximumHeight(50);
 
@@ -189,4 +188,11 @@ void topWidgets::initWidget() {
     main_yout_->setContentsMargins(16, 0, 15, 0);
     setLayout(main_yout_);
 
+}
+
+void topWidgets::InitConnect() {
+    auto mainWnd = parentWidget();
+    if (!mainWnd) return;
+
+    connect(&m_btnexit, SIGNAL(clicked(bool)), mainWnd, SLOT(close()));
 }

@@ -7,7 +7,10 @@ QMutex mainWnd::mutex_;
 QAtomicPointer<mainWnd> mainWnd::main_wnd_ = nullptr;
 
 mainWnd::mainWnd(QWidget *parent)
-    : baseWindow(parent) {
+    : baseWindow(parent)
+    , top_widget_(this) 
+    , mid_widget_(this)
+    , bottom_widget_(this) {
 
     setMinimumSize(1008, 698);
     resize(1008, 698);
@@ -18,24 +21,25 @@ mainWnd::mainWnd(QWidget *parent)
 
     //top_widget_.setStyleSheet("topWidgets{background:blue;}");
 
-    initLayout();
+    InitUi();
+    InitConnect();
 }
 
 mainWnd::~mainWnd() {
 
 }
 
-mainWnd& mainWnd::getInstance() {
+mainWnd* mainWnd::getInstance() {
     if (main_wnd_ == nullptr) {
         QMutexLocker locker(&mutex_); // ¼Ó»¥³âËø¡£
         if (main_wnd_ == nullptr)
             main_wnd_ = new mainWnd();
     }
 
-    return *main_wnd_;
+    return main_wnd_;
 }
 
-void mainWnd::initLayout() {
+void mainWnd::InitUi() {
     QVBoxLayout *vlyout = new QVBoxLayout;
     if (!vlyout) return;
 
@@ -46,6 +50,9 @@ void mainWnd::initLayout() {
     vlyout->setContentsMargins(0, 0, 0, 0);
 
     main_widget_.setLayout(vlyout);
+}
+
+void mainWnd::InitConnect() {
 }
 
 void mainWnd::mouseDoubleClickEvent(QMouseEvent *e) {
