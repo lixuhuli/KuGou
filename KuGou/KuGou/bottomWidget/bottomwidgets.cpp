@@ -4,10 +4,14 @@
 
 bottomWidgets::bottomWidgets(QWidget *parent) 
     : baseWidget(parent)
+    , store_vol_(80)
     , volumn_widget_(parent)
     , play_slider_(Qt::Horizontal, this) {
     InitUi();
     InitConnect();
+
+    m_timer.setSingleShot(true);
+    volumn_widget_.installEventFilter(this);
 }
 
 void bottomWidgets::InitUi() {
@@ -168,7 +172,14 @@ void bottomWidgets::InitUi() {
 }
 
 void bottomWidgets::InitConnect() {
+    connect(&m_timer, SIGNAL(timeout()), &volumn_widget_, SLOT(hide()));
+    connect(&m_btnvol, SIGNAL(clicked(bool)), this, SLOT(OnRadioClick(bool)));
 
+    auto vol_slider = volumn_widget_.volumn_slider();
+    if (vol_slider) {
+        connect(vol_slider, SIGNAL(valueChanged(int)), this, SLOT(updateBtnStatus(int)));
+        vol_slider->setValue(store_vol_);
+    }
 }
 
 bool bottomWidgets::eventFilter(QObject *o, QEvent *e) {
@@ -184,8 +195,48 @@ bool bottomWidgets::eventFilter(QObject *o, QEvent *e) {
             m_timer.stop();
         }
         else if (e->type() == QEvent::Leave) {
-
+            m_timer.start(500);
         }
     }
+    else if (o == &volumn_widget_) {
+        if (e->type() == QEvent::Enter) {
+            m_timer.stop();
+        }
+        else if (e->type() == QEvent::Leave) {
+            m_timer.start(500);
+        }
+    }
+
     return baseWidget::eventFilter(o, e);
+}
+
+void bottomWidgets::updateBtnStatus(int value) {
+    if (value <= 0) {
+        m_btnvol.setChecked(true);
+    }
+    else if (value <= 30) {
+        m_btnvol.setChecked(false);
+        m_btnvol.setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 60 0 20;}"
+            "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 60 0 20;}"
+            "QRadioButton::indicator::checked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 0 0 80;}"
+            "QRadioButton::indicator::checked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 0 0 80;}"
+            "QRadioButton::indicator{width:20px;height:20px;}");
+    }
+    else {
+        m_btnvol.setChecked(false);
+        m_btnvol.setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 20 0 60;}"
+            "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 20 0 60;}"
+            "QRadioButton::indicator::checked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 0 0 80;}"
+            "QRadioButton::indicator::checked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 0 0 80;}"
+            "QRadioButton::indicator{width:20px;height:20px;}");
+    }
+
+    if (value != 0) store_vol_ = value;
+}
+
+void bottomWidgets::OnRadioClick(bool check) {
+    auto vol_slider = volumn_widget_.volumn_slider();
+    if (!vol_slider) return;
+
+    vol_slider->setValue(check ? 0 : store_vol_);
 }

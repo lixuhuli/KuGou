@@ -12,6 +12,11 @@ VolumuCtrl::VolumuCtrl(const QString &text, QWidget *parent /*= nullptr*/)
 
 volSliderWidget::volSliderWidget(QWidget* parent /*= 0*/)
  : baseWidget(parent) {
+    InitUi();
+    InitConnect();
+}
+
+void volSliderWidget::InitUi() {
     QHBoxLayout *hlyout = new QHBoxLayout;
     if (!hlyout) return;
 
@@ -30,4 +35,8 @@ volSliderWidget::volSliderWidget(QWidget* parent /*= 0*/)
     hlyout->addWidget(m_slider);
     hlyout->setContentsMargins(0, 0, 0, 0);
     setLayout(hlyout);
+}
+
+void volSliderWidget::InitConnect() {
+
 }

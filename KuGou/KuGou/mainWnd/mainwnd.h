@@ -18,6 +18,9 @@ public:
     mainWnd(QWidget *parent = 0);
     virtual ~mainWnd();
 
+public:
+    void setCurVol(int);
+
 protected:
     void InitUi();
     void InitConnect();
@@ -32,6 +35,11 @@ private:
     topWidgets top_widget_;
     middleWidgets mid_widget_;
     bottomWidgets bottom_widget_;
+
+signals:
+
+public slots :
+    
 
 };
 

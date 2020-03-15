@@ -24,6 +24,8 @@ protected:
 signals:
 
 public slots:
+    void updateBtnStatus(int volume);
+    void OnRadioClick(bool check);
 
 private:
     QPushButton m_btnnext;
@@ -46,6 +48,7 @@ private:
 
     volSliderWidget volumn_widget_;
     QTimer m_timer;
+    int store_vol_;
 };
 
 #endif // BOTTOMWIDGETS_H

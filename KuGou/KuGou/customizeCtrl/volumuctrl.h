@@ -21,6 +21,14 @@ public:
     volSliderWidget(QWidget* parent = 0);
     virtual ~volSliderWidget() {}
 
+public:
+    Slider* volumn_slider() { return m_slider; }
+
+protected:
+    void InitUi();
+    void InitConnect();
+
+private:
     Slider *m_slider;
 
 public slots:
