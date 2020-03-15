@@ -1,8 +1,10 @@
 #include "bottomwidgets.h"
 #include <QBoxLayout>
+#include <QEvent>
 
 bottomWidgets::bottomWidgets(QWidget *parent) 
     : baseWidget(parent)
+    , volumn_widget_(parent)
     , play_slider_(Qt::Horizontal, this) {
     InitUi();
     InitConnect();
@@ -48,7 +50,7 @@ void bottomWidgets::InitUi() {
     layout1->setContentsMargins(0, 0, 0, 0);
 
 
-    /////////////////////////////////////////////////////////////////////////secondlayout
+    ///////////////////////////////////////////////////////////////////////////////////////
     QVBoxLayout *layout2 = new QVBoxLayout;
 
     QHBoxLayout *layout2_1 = new QHBoxLayout;
@@ -87,13 +89,103 @@ void bottomWidgets::InitUi() {
     layout2->setContentsMargins(0, 0, 0, 10);
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    QHBoxLayout *layout3 = new QHBoxLayout;
+
+    m_btnplaylist.setFixedSize(60, 20);
+    m_btnlrc.setFixedSize(20, 20);
+    m_btnequalizer.setFixedSize(48, 20);
+    m_btnplaymode.setFixedSize(20, 20);
+    m_btnvol.setFixedSize(20, 20);
+    m_btnmore.setFixedSize(20, 20);
+    m_btndownload.setFixedSize(20, 20);
+    m_btnfavorite.setFixedSize(20, 20);
+
+    m_btnplaylist.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btnlrc.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btnequalizer.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btnplaymode.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btnvol.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btnmore.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btndownload.setCursor(QCursor(Qt::PointingHandCursor));
+    m_btnfavorite.setCursor(QCursor(Qt::PointingHandCursor));
+
+    m_btnplaylist.setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/bottomwidget/btn_miniplaylist (1).png);}"
+        "QPushButton::hover{background-image:url(:/image/bottomwidget/btn_miniplaylist (2).png);}"
+        "QPushButton::pressed{background-image:url(:/image/bottomwidget/btn_miniplaylist (3).png);}");
+    m_btnlrc.setStyleSheet("QPushButton{border-image:url(:/image/bottomwidget/btn_lrc (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/bottomwidget/btn_lrc (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/bottomwidget/btn_lrc (3).png);}");
+
+    m_btnequalizer.setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/bottomwidget/btn_equalizer (1).png);}"
+        "QPushButton::hover{background-image:url(:/image/bottomwidget/btn_equalizer (2).png);}"
+        "QPushButton::pressed{background-image:url(:/image/bottomwidget/btn_equalizer (3).png);}");
+
+    m_btnplaymode.setStyleSheet("QPushButton{border-image:url(:/image/bottomwidget/btn_listrandom (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/bottomwidget/btn_listrandom (2).png);}");
+
+    m_btnmore.setStyleSheet("QPushButton{border-image:url(:/image/bottomwidget/btn_more (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/bottomwidget/btn_more (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/bottomwidget/btn_more (3).png);}");
+
+    m_btndownload.setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/bottomwidget/btn_download (1).png);}"
+        "QPushButton::hover{background-image:url(:/image/bottomwidget/btn_download (2).png);}"
+        "QPushButton::pressed{background-image:url(:/image/bottomwidget/btn_download (3).png);}");
+
+    m_btnfavorite.setStyleSheet("QPushButton{border-image:url(:/image/bottomwidget/btn_favorite_no (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/bottomwidget/btn_favorite_no (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/bottomwidget/btn_favorite_no (3).png);}");
+
+    m_btnvol.setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 20 0 60;}"
+        "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 20 0 60;}"
+        "QRadioButton::indicator::checked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 0 0 80;}"
+        "QRadioButton::indicator::checked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 0 0 80;}"
+        "QRadioButton::indicator{width:20px;height:20px;}");
+    m_btnvol.installEventFilter(this);
+
+    layout3->addWidget(&m_btnfavorite);
+    layout3->addWidget(&m_btndownload);
+    layout3->addWidget(&m_btnmore);
+    layout3->addWidget(&m_btnplaymode);
+    layout3->addWidget(&m_btnvol);
+    layout3->addWidget(&m_btnequalizer);
+    layout3->addWidget(&m_btnlrc);
+    layout3->addWidget(&m_btnplaylist);
+
+    layout3->setSpacing(18);
+    layout3->setContentsMargins(0, 0, 0, 0);
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
     main_yout->addLayout(layout1);
     main_yout->addLayout(layout2);
+    main_yout->addLayout(layout3);
     main_yout->setSpacing(30);
     main_yout->setContentsMargins(12, 0, 0, 0);
     setLayout(main_yout);
+
+    volumn_widget_.hide();
 }
 
 void bottomWidgets::InitConnect() {
 
+}
+
+bool bottomWidgets::eventFilter(QObject *o, QEvent *e) {
+    if (o == &m_btnvol) {
+        if (e->type() == QEvent::Enter) {
+            auto x = m_btnvol.pos().x();
+            auto y = pos().y() + m_btnvol.pos().y() - volumn_widget_.height();
+
+            volumn_widget_.setGeometry(x, y, 30, 310);
+            volumn_widget_.show();
+            volumn_widget_.raise();
+
+            m_timer.stop();
+        }
+        else if (e->type() == QEvent::Leave) {
+
+        }
+    }
+    return baseWidget::eventFilter(o, e);
 }

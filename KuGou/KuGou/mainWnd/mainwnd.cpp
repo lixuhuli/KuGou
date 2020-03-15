@@ -8,7 +8,7 @@ QAtomicPointer<mainWnd> mainWnd::main_wnd_ = nullptr;
 
 mainWnd::mainWnd(QWidget *parent)
     : baseWindow(parent)
-    , top_widget_(this) 
+    , top_widget_(this)
     , mid_widget_(this)
     , bottom_widget_(this) {
 
