@@ -80,6 +80,9 @@
     <ClCompile Include="customizeCtrl\volumuctrl.cpp">
       <Filter>customizeCtrl</Filter>
     </ClCompile>
+    <ClCompile Include="middleWidget\midleftwidget.cpp">
+      <Filter>middleWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -112,6 +115,9 @@
     <QtMoc Include="customizeCtrl\volumuctrl.h">
       <Filter>customizeCtrl</Filter>
     </QtMoc>
+    <QtMoc Include="middleWidget\midleftwidget.h">
+      <Filter>middleWidget</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -129,6 +135,9 @@
       <Filter>Resource Files</Filter>
     </QtRcc>
     <QtRcc Include="res_bottomwidget.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="res_middlewidget.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>

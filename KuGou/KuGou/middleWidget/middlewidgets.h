@@ -2,6 +2,7 @@
 #define MIDDLEWIDGETS_H
 
 #include "baseWnd/basewidget.h"
+#include "midleftwidget.h"
 
 class middleWidgets : public baseWidget {
     Q_OBJECT
@@ -16,6 +17,10 @@ protected:
 signals:
 
 public slots:
+
+private:
+    midLeftWidget left_widget_;
+    baseWidget right_widget_;
 };
 
 #endif // MIDDLEWIDGETS_H

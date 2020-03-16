@@ -185,6 +185,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainWnd\mainwnd.cpp" />
     <ClCompile Include="middleWidget\middlewidgets.cpp" />
+    <ClCompile Include="middleWidget\midleftwidget.cpp" />
     <ClCompile Include="topWidget\topwidgets.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +215,7 @@
     <QtRcc Include="res_main.qrc">
       <FileType>Document</FileType>
     </QtRcc>
+    <QtRcc Include="res_middlewidget.qrc" />
     <QtRcc Include="res_topwidget.qrc" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="customizeCtrl\volumuctrl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\midleftwidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

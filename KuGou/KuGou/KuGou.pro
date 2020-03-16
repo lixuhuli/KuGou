@@ -38,4 +38,5 @@ HEADERS +=
 RESOURCES += \
     res_main.qrc \
     res_topwidget.qrc \
-    res_bottomwidget.qrc
+    res_bottomwidget.qrc \
+    res_middlewidget.qrc
