@@ -14,6 +14,9 @@ protected:
     void InitUi();
     void InitConnect();
 
+    virtual void mousePressEvent(QMouseEvent *) override { setFocus(); }
+    virtual void mouseReleaseEvent(QMouseEvent *) override  {}
+
 signals:
 
 public slots:
