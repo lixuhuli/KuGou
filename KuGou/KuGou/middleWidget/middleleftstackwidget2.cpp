@@ -37,7 +37,7 @@ void middleLeftStackWidget2::InitUi() {
     btn->setText(QString::fromLocal8Bit("马上使用"));
     btn->setFixedSize(170, 36);
     btn->setCursor(QCursor(Qt::PointingHandCursor));
-    btn->setStyleSheet("QPushButton{font-size:16px;color:rgb(80,80,80);border: 1px solid;border-color:rgb(229,229,229);background:rgb(240,240,240);}"
+    btn->setStyleSheet("QPushButton{font-size:16px;color:rgb(80,80,80);border: 1px solid rgb(229,229,229);background:rgb(240,240,240);}"
         "QPushButton:hover{font-size:16px;color:rgb(30,30,30);border: 1px solid;border-color:rgb(219,219,219);background:rgb(229,229,229);}"
         "QPushButton:pressed{font-size:16px;color:rgb(80,80,80);border: 1px solid;border-color:rgb(229,229,229);background:rgb(240,240,240);}");
 

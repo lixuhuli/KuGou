@@ -11,9 +11,7 @@ middleLeftStackWidget4::middleLeftStackWidget4(QWidget *parent /*= nullptr*/)
 
 void middleLeftStackWidget4::InitUi() {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
 
-void middleLeftStackWidget4::InitConnect() {
     QVBoxLayout *vLyout = new QVBoxLayout;
     if (!vLyout) return;
 
@@ -47,4 +45,7 @@ void middleLeftStackWidget4::InitConnect() {
 
     vLyout->setContentsMargins(0, 0, 0, 0);
     setLayout(vLyout);
+}
+
+void middleLeftStackWidget4::InitConnect() {
 }
