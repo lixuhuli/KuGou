@@ -184,7 +184,11 @@
     <ClCompile Include="customizeCtrl\volumuctrl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainWnd\mainwnd.cpp" />
+    <ClCompile Include="middleWidget\middleleftstackwidget1.cpp" />
     <ClCompile Include="middleWidget\middleleftstackwidget2.cpp" />
+    <ClCompile Include="middleWidget\middleleftstackwidget3.cpp" />
+    <ClCompile Include="middleWidget\middleleftstackwidget4.cpp" />
+    <ClCompile Include="middleWidget\middleleftstackwidget5.cpp" />
     <ClCompile Include="middleWidget\middlewidgets.cpp" />
     <ClCompile Include="middleWidget\midleftwidget.cpp" />
     <ClCompile Include="topWidget\topwidgets.cpp" />
@@ -251,6 +255,18 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="middleWidget\middleleftstackwidget2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\middleleftstackwidget3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\middleleftstackwidget4.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\middleleftstackwidget1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\middleleftstackwidget5.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

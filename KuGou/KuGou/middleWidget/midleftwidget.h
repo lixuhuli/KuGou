@@ -5,6 +5,10 @@
 #include <QButtonGroup>
 #include <QStackedWidget>
 #include "middleleftstackwidget2.h"
+#include "middleleftstackwidget3.h"
+#include "middleleftstackwidget1.h"
+#include "middleleftstackwidget4.h"
+#include "middleleftstackwidget5.h"
 
 
 class midLeftWidget : public baseWidget {
@@ -29,11 +33,11 @@ private:
     QPixmap opt_pic_;
         
     QStackedWidget stack_widget_;
-    baseWidget stack_widget_page1_;
+    middleLeftStackWidget1 stack_widget_page1_;
     middleLeftStackWidget2 stack_widget_page2_;
-    baseWidget stack_widget_page3_;
-    baseWidget stack_widget_page4_;
-    baseWidget stack_widget_page5_;
+    middleLeftStackWidget3 stack_widget_page3_;
+    middleLeftStackWidget4 stack_widget_page4_;
+    middleLeftStackWidget5 stack_widget_page5_;
 };
 
 #endif // MIDLEFTWIDGET_H
