@@ -83,6 +83,9 @@
     <ClCompile Include="middleWidget\midleftwidget.cpp">
       <Filter>middleWidget</Filter>
     </ClCompile>
+    <ClCompile Include="middleWidget\middleleftstackwidget2.cpp">
+      <Filter>middleWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -116,6 +119,9 @@
       <Filter>customizeCtrl</Filter>
     </QtMoc>
     <QtMoc Include="middleWidget\midleftwidget.h">
+      <Filter>middleWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="middleWidget\middleleftstackwidget2.h">
       <Filter>middleWidget</Filter>
     </QtMoc>
   </ItemGroup>

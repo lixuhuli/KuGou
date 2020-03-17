@@ -28,3 +28,7 @@ void middleWidgets::InitUi() {
 void middleWidgets::InitConnect() {
 
 }
+
+void middleWidgets::mouseMoveEvent(QMouseEvent *e) {
+    baseWidget::mouseMoveEvent(e);
+}

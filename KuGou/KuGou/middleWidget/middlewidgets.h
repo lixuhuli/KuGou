@@ -16,6 +16,7 @@ protected:
 
     virtual void mousePressEvent(QMouseEvent *) override { setFocus(); }
     virtual void mouseReleaseEvent(QMouseEvent *) override  {}
+    virtual void mouseMoveEvent(QMouseEvent *) override;
 
 signals:
 

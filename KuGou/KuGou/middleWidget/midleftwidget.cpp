@@ -3,10 +3,16 @@
 #include <QRadioButton>
 #include <QPushButton>
 #include <QPainter>
+#include <QListWidget>
 
 midLeftWidget::midLeftWidget(QWidget *parent /*= nullptr*/) 
  : baseWidget(parent)
- , option_groups_(this){
+ , option_groups_(this)
+ , stack_widget_page1_(this)
+ , stack_widget_page2_(this) 
+ , stack_widget_page3_(this) 
+ , stack_widget_page4_(this) 
+ , stack_widget_page5_(this) {
     InitUi();
     InitConnect();
     initAnimation();
@@ -28,7 +34,7 @@ void midLeftWidget::InitUi() {
     option_1->setChecked(true);
     option_1->setFixedHeight(40);
     option_1->setCursor(QCursor(Qt::PointingHandCursor));
-    option_1->setStyleSheet("QPushButton{border:none;background-image:url(:/image/middlewidget/btn_music (1).png);background-repeat:repeat-no;background-position:Center;}"
+    option_1->setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/middlewidget/btn_music (1).png);background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::hover{background-image:url(:/image/middlewidget/btn_music (2).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::pressed{background-image:url(:/image/middlewidget/btn_music (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::checked{background-image:url(:/image/middlewidget/btn_music (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}");
@@ -37,7 +43,7 @@ void midLeftWidget::InitUi() {
     option_2->setCheckable(true);
     option_2->setFixedHeight(40);
     option_2->setCursor(QCursor(Qt::PointingHandCursor));
-    option_2->setStyleSheet("QPushButton{border:none;background-image:url(:/image/middlewidget/btn_cloud (1).png);background-repeat:repeat-no;background-position:Center;}"
+    option_2->setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/middlewidget/btn_cloud (1).png);background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::hover{background-image:url(:/image/middlewidget/btn_cloud (2).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::pressed{background-image:url(:/image/middlewidget/btn_cloud (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::checked{background-image:url(:/image/middlewidget/btn_cloud (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}");
@@ -46,7 +52,7 @@ void midLeftWidget::InitUi() {
     option_3->setCheckable(true);
     option_3->setFixedHeight(40);
     option_3->setCursor(QCursor(Qt::PointingHandCursor));
-    option_3->setStyleSheet("QPushButton{border:none;background-image:url(:/image/middlewidget/btn_radio (1).png);background-repeat:repeat-no;background-position:Center;}"
+    option_3->setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/middlewidget/btn_radio (1).png);background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::hover{background-image:url(:/image/middlewidget/btn_radio (2).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::pressed{background-image:url(:/image/middlewidget/btn_radio (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::checked{background-image:url(:/image/middlewidget/btn_radio (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}");
@@ -55,7 +61,7 @@ void midLeftWidget::InitUi() {
     option_4->setCheckable(true);
     option_4->setFixedHeight(40);
     option_4->setCursor(QCursor(Qt::PointingHandCursor));
-    option_4->setStyleSheet("QPushButton{border:none;background-image:url(:/image/middlewidget/btn_phone (1).png);background-repeat:repeat-no;background-position:Center;}"
+    option_4->setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/middlewidget/btn_phone (1).png);background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::hover{background-image:url(:/image/middlewidget/btn_phone (2).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::pressed{background-image:url(:/image/middlewidget/btn_phone (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::checked{background-image:url(:/image/middlewidget/btn_phone (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}");
@@ -64,7 +70,7 @@ void midLeftWidget::InitUi() {
     option_5->setCheckable(true);
     option_5->setFixedHeight(40);
     option_5->setCursor(QCursor(Qt::PointingHandCursor));
-    option_5->setStyleSheet("QPushButton{border:none;background-image:url(:/image/middlewidget/btn_download (1).png);background-repeat:repeat-no;background-position:Center;}"
+    option_5->setStyleSheet("QPushButton{border:NULL;background-image:url(:/image/middlewidget/btn_download (1).png);background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::hover{background-image:url(:/image/middlewidget/btn_download (2).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::pressed{background-image:url(:/image/middlewidget/btn_download (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}"
         "QPushButton::checked{background-image:url(:/image/middlewidget/btn_download (3).png) no-repeat center;background-repeat:repeat-no;background-position:Center;}");
@@ -85,10 +91,21 @@ void midLeftWidget::InitUi() {
     hlyout->setContentsMargins(0, 0, 0, 0);
     hlyout->setSpacing(0);
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    stack_widget_.setFrameShadow(QFrame::Plain);
+    stack_widget_.setFrameShape(QFrame::NoFrame);
 
+    stack_widget_.addWidget(&stack_widget_page1_);
+    stack_widget_.addWidget(&stack_widget_page2_);
+    stack_widget_.addWidget(&stack_widget_page3_);
+    stack_widget_.addWidget(&stack_widget_page4_);
+    stack_widget_.addWidget(&stack_widget_page5_);
+
+    stack_widget_.setContentsMargins(0, 0, 0, 0);
+    stack_widget_.setCurrentIndex(0);
 
     vlyout->addLayout(hlyout);
-    vlyout->addStretch();
+    vlyout->addWidget(&stack_widget_);
     vlyout->setSpacing(0);
     vlyout->setContentsMargins(0, 0, 0, 0);
     setLayout(vlyout);
@@ -96,10 +113,16 @@ void midLeftWidget::InitUi() {
 
 void midLeftWidget::InitConnect() {
     opt_pic_ = QPixmap(":/image/middlewidget/indicator.png");
+
+    connect(&option_groups_, SIGNAL(buttonPressed(int)), &stack_widget_, SLOT(setCurrentIndex(int)));
+
+    // 暂时测试用  后续会删掉
+    int check_id = 1;
+    option_groups_.button(check_id)->setChecked(true);
+    option_groups_.buttonPressed(check_id);
 }
 
 void midLeftWidget::initAnimation() {
-
 }
 
 void midLeftWidget::paintEvent(QPaintEvent *e) {
