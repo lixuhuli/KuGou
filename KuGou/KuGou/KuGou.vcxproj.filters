@@ -98,6 +98,9 @@
     <ClCompile Include="middleWidget\middleleftstackwidget5.cpp">
       <Filter>middleWidget</Filter>
     </ClCompile>
+    <ClCompile Include="middleWidget\middlewidgetright.cpp">
+      <Filter>middleWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -146,6 +149,9 @@
       <Filter>middleWidget</Filter>
     </QtMoc>
     <QtMoc Include="middleWidget\middleleftstackwidget5.h">
+      <Filter>middleWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="middleWidget\middlewidgetright.h">
       <Filter>middleWidget</Filter>
     </QtMoc>
   </ItemGroup>

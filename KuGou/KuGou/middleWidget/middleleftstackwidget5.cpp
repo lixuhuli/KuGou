@@ -30,7 +30,7 @@ void middleLeftStackWidget5::InitUi() {
     btn_mydown->setText(QString::fromLocal8Bit("我的下载"));
     btn_mydown->setStyleSheet("QPushButton{color:rgb(68,68,68);font-size:14px;}"
         "QPushButton::checked{color:rgb(40,143,231);font-size:14px;}");
-    down_groups_.addButton(btn_mydown);
+    down_groups_.addButton(btn_mydown, 0);
 
     QPushButton *btn_local = new QPushButton(this);
     btn_local->setCheckable(true);
@@ -40,7 +40,7 @@ void middleLeftStackWidget5::InitUi() {
     btn_local->setText(QString::fromLocal8Bit("本地导入"));
     btn_local->setStyleSheet("QPushButton{color:rgb(68,68,68);font-size:14px;}"
         "QPushButton::checked{color:rgb(40,143,231);font-size:14px;}");
-    down_groups_.addButton(btn_local);
+    down_groups_.addButton(btn_local, 1);
 
 
     hLyout->addWidget(btn_mydown);

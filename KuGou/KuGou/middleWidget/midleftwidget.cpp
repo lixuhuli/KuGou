@@ -117,7 +117,7 @@ void midLeftWidget::InitConnect() {
     connect(&option_groups_, SIGNAL(buttonPressed(int)), &stack_widget_, SLOT(setCurrentIndex(int)));
 
     // 暂时测试用  后续会删掉
-    int check_id = 2;
+    int check_id = 1;
     option_groups_.button(check_id)->setChecked(true);
     option_groups_.buttonPressed(check_id);
 }

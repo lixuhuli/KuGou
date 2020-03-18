@@ -3,6 +3,7 @@
 
 #include "baseWnd/basewidget.h"
 #include "midleftwidget.h"
+#include "middlewidgetright.h"
 
 class middleWidgets : public baseWidget {
     Q_OBJECT
@@ -24,7 +25,7 @@ public slots:
 
 private:
     midLeftWidget left_widget_;
-    baseWidget right_widget_;
+    middleWidgetRight right_widget_;
 };
 
 #endif // MIDDLEWIDGETS_H

@@ -189,6 +189,7 @@
     <ClCompile Include="middleWidget\middleleftstackwidget3.cpp" />
     <ClCompile Include="middleWidget\middleleftstackwidget4.cpp" />
     <ClCompile Include="middleWidget\middleleftstackwidget5.cpp" />
+    <ClCompile Include="middleWidget\middlewidgetright.cpp" />
     <ClCompile Include="middleWidget\middlewidgets.cpp" />
     <ClCompile Include="middleWidget\midleftwidget.cpp" />
     <ClCompile Include="topWidget\topwidgets.cpp" />
@@ -267,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="middleWidget\middleleftstackwidget5.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\middlewidgetright.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
