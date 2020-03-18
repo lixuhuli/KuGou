@@ -101,6 +101,9 @@
     <ClCompile Include="middleWidget\middlewidgetright.cpp">
       <Filter>middleWidget</Filter>
     </ClCompile>
+    <ClCompile Include="middleWidget\mvwidget.cpp">
+      <Filter>middleWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -152,6 +155,9 @@
       <Filter>middleWidget</Filter>
     </QtMoc>
     <QtMoc Include="middleWidget\middlewidgetright.h">
+      <Filter>middleWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="middleWidget\mvwidget.h">
       <Filter>middleWidget</Filter>
     </QtMoc>
   </ItemGroup>

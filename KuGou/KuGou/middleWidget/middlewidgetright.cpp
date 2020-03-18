@@ -5,6 +5,7 @@
 
 middleWidgetRight::middleWidgetRight(QWidget *parent /*= nullptr*/)
     : baseWidget(parent)
+    , mv_widget_(this)
     , option_functions_(this)
     , stack_func_widget_(this) {
     InitUi();
@@ -54,7 +55,7 @@ void middleWidgetRight::InitUi() {
     stack_func_widget_.addWidget(new baseWidget(this));
     stack_func_widget_.addWidget(new baseWidget(this));
     stack_func_widget_.addWidget(new baseWidget(this));
-    stack_func_widget_.addWidget(new baseWidget(this));
+    stack_func_widget_.addWidget(&mv_widget_);
     stack_func_widget_.addWidget(new baseWidget(this));
     stack_func_widget_.setCurrentIndex(0);
 

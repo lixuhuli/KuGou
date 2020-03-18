@@ -4,6 +4,7 @@
 #include "baseWnd/basewidget.h"
 #include <QButtonGroup>
 #include <QStackedWidget>
+#include "mvwidget.h"
 
 class middleWidgetRight : public baseWidget {
     Q_OBJECT
@@ -24,6 +25,8 @@ signals:
 private:
     QButtonGroup option_functions_;
     QStackedWidget stack_func_widget_;
+
+    MvWidget mv_widget_;;
 };
 
 #endif // MIDDLEWIDGETRIGHT_H

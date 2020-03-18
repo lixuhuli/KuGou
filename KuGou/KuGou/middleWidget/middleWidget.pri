@@ -6,7 +6,8 @@ HEADERS += \
     $$PWD/middleleftstackwidget4.h \
     $$PWD/middleleftstackwidget1.h \
     $$PWD/middleleftstackwidget5.h \
-    $$PWD/middlewidgetright.h
+    $$PWD/middlewidgetright.h \
+    $$PWD/mvwidget.h
 
 SOURCES += \
     $$PWD/middlewidgets.cpp \
@@ -16,4 +17,5 @@ SOURCES += \
     $$PWD/middleleftstackwidget4.cpp \
     $$PWD/middleleftstackwidget1.cpp \
     $$PWD/middleleftstackwidget5.cpp \
-    $$PWD/middlewidgetright.cpp
+    $$PWD/middlewidgetright.cpp \
+    $$PWD/mvwidget.cpp
