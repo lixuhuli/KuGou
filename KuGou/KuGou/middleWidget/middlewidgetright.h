@@ -12,6 +12,8 @@ public:
     explicit middleWidgetRight(QWidget *parent = nullptr);
     virtual ~middleWidgetRight() {}
 
+    void setDrawLine(bool draw = true) { m_isdrawline = draw; }
+
 protected:
     void InitUi();
     void InitConnect();
@@ -19,14 +21,18 @@ protected:
     virtual void paintEvent(QPaintEvent*) override;
 
 signals:
+    void setIsTransparent(bool trans);
 
-    public slots :
+public slots :
+    void OnButtonToggled(int id, bool check);
 
 private:
     QButtonGroup option_functions_;
     QStackedWidget stack_func_widget_;
 
-    MvWidget mv_widget_;;
+    MvWidget mv_widget_;
+
+    bool m_isdrawline;
 };
 
 #endif // MIDDLEWIDGETRIGHT_H

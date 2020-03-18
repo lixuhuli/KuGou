@@ -7,15 +7,24 @@
 
 midLeftWidget::midLeftWidget(QWidget *parent /*= nullptr*/) 
  : baseWidget(parent)
+ , line_color_(230, 230, 230)
+ , bg_color_(255, 255, 255, 100)
  , option_groups_(this)
  , stack_widget_page1_(this)
  , stack_widget_page2_(this) 
  , stack_widget_page3_(this) 
  , stack_widget_page4_(this) 
- , stack_widget_page5_(this) {
+ , stack_widget_page5_(this)
+ , m_isDrawVerticalLine(true) {
     InitUi();
     InitConnect();
     initAnimation();
+}
+
+void midLeftWidget::setTransStatus(bool isTrans) {
+    m_isDrawVerticalLine = (isTrans ? false : true);
+    line_color_ = (isTrans ? QColor(55, 55, 55, 55) : QColor(230, 230, 230));
+    update();
 }
 
 void midLeftWidget::InitUi() {
@@ -130,11 +139,11 @@ void midLeftWidget::paintEvent(QPaintEvent *e) {
 
     QPainter painter(this);
     painter.setPen(Qt::transparent);
-    painter.setBrush(QColor(255, 255, 255, 100));//刷透明区域
+    painter.setBrush(bg_color_); // 刷透明区域
     painter.drawRect(-1, -1, width(), height() + 1);
-    painter.setPen(QColor(230, 230, 230));
+    painter.setPen(line_color_);
 
-    painter.drawLine(width() - 1, 0, width() - 1, height());//vertical line
+    if (m_isDrawVerticalLine) painter.drawLine(width() - 1, 0, width() - 1, height());//vertical line
 
     auto option = qobject_cast<QPushButton *>(option_groups_.checkedButton());
     if (!option || opt_pic_.isNull()) return;

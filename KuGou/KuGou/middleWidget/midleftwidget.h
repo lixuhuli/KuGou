@@ -17,6 +17,8 @@ public:
     explicit midLeftWidget(QWidget *parent = nullptr);
     virtual ~midLeftWidget() {}
 
+    void setTransStatus(bool isTrans);
+
 protected:
     void InitUi();
     void InitConnect();
@@ -38,6 +40,11 @@ private:
     middleLeftStackWidget3 stack_widget_page3_;
     middleLeftStackWidget4 stack_widget_page4_;
     middleLeftStackWidget5 stack_widget_page5_;
+
+    bool m_isDrawVerticalLine;
+
+    QColor line_color_;
+    QColor bg_color_;
 };
 
 #endif // MIDLEFTWIDGET_H

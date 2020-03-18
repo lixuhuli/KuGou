@@ -32,3 +32,9 @@ void middleWidgets::InitConnect() {
 void middleWidgets::mouseMoveEvent(QMouseEvent *e) {
     baseWidget::mouseMoveEvent(e);
 }
+
+void middleWidgets::setBackgroundstatus(bool isTransparent) {
+    QString str = QString("baseWidget{background:%1;}").arg(isTransparent ? "transparent" : "white");
+    left_widget_.setTransStatus(isTransparent);
+    setStyleSheet(str);
+}

@@ -6,6 +6,7 @@
 middleWidgetRight::middleWidgetRight(QWidget *parent /*= nullptr*/)
     : baseWidget(parent)
     , mv_widget_(this)
+    , m_isdrawline(true)
     , option_functions_(this)
     , stack_func_widget_(this) {
     InitUi();
@@ -68,13 +69,36 @@ void middleWidgetRight::InitUi() {
 }
 
 void middleWidgetRight::InitConnect() {
-    connect(&option_functions_, SIGNAL(buttonClicked(int)), &stack_func_widget_, SLOT(setCurrentIndex(int)));
+    connect(&option_functions_, SIGNAL(buttonToggled(int, bool)), this, SLOT(OnButtonToggled(int, bool)));
+    connect(this, SIGNAL(setIsTransparent(bool)), parentWidget(), SLOT(setBackgroundstatus(bool)));
 }
 
 void middleWidgetRight::paintEvent(QPaintEvent* e) {
     baseWidget::paintEvent(e);
 
-    QPainter p(this);
-    p.setPen(QColor(230, 230, 230));
-    p.drawLine(0, 39, width(), 39);
+    if (m_isdrawline) {
+        QPainter p(this);
+        p.setPen(QColor(230, 230, 230));
+        p.drawLine(0, 39, width(), 39);
+    }
+}
+
+void middleWidgetRight::OnButtonToggled(int id, bool check) {
+    auto list_btn = option_functions_.buttons();
+    if (id < 0 || id >= list_btn.count()) return;
+
+    if (check) stack_func_widget_.setCurrentIndex(id);
+
+    if (id == 5) {
+        if (check) {
+            setDrawLine(false);
+            setIsTransparent(true);
+            update();
+        }
+        else {
+            setDrawLine(true);
+            setIsTransparent(false);
+            update();
+        }
+    }
 }

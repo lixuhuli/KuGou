@@ -22,6 +22,7 @@ protected:
 signals:
 
 public slots:
+    void setBackgroundstatus(bool isTransparent);
 
 private:
     midLeftWidget left_widget_;
