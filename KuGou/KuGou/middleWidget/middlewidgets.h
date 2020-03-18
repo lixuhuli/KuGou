@@ -4,6 +4,7 @@
 #include "baseWnd/basewidget.h"
 #include "midleftwidget.h"
 #include "middlewidgetright.h"
+#include <QRadioButton>
 
 class middleWidgets : public baseWidget {
     Q_OBJECT
@@ -26,6 +27,7 @@ public slots:
 
 private:
     midLeftWidget left_widget_;
+    QRadioButton btn_hide_;
     middleWidgetRight right_widget_;
 };
 
