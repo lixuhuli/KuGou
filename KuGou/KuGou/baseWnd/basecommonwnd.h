@@ -1,10 +1,8 @@
 #ifndef BASECOMMONWINDOW_H
 #define BASECOMMONWINDOW_H
 
-#include <QWidget>
 #include "widget.h"
-
-enum eCursorPressedState { UnPressed, WinRegion, WinBorder };
+#include "dragautosizewnd.h"
 
 class baseCommonWnd : public QWidget {
     Q_OBJECT

@@ -169,11 +169,11 @@
     <QtMoc Include="middleWidget\mvwidget.h">
       <Filter>middleWidget</Filter>
     </QtMoc>
-    <QtMoc Include="baseWnd\basecommonwnd.h">
-      <Filter>baseWnd</Filter>
-    </QtMoc>
     <QtMoc Include="skinWidget\skinwidget.h">
       <Filter>skinWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="baseWnd\basecommonwnd.h">
+      <Filter>baseWnd</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
