@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 
 baseCommonWnd::baseCommonWnd(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , border_(4)
     , main_widget_(this)
     , mouse_pos_(0, 0)

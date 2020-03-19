@@ -3,8 +3,9 @@
 
 #include "widget.h"
 #include "dragautosizewnd.h"
+#include <QDialog>
 
-class baseCommonWnd : public QWidget {
+class baseCommonWnd : public QDialog {
     Q_OBJECT
 public:
     explicit baseCommonWnd(QWidget *parent = nullptr);
