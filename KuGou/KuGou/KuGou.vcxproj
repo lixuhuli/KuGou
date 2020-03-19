@@ -175,6 +175,7 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="baseWnd\basecommonwnd.cpp" />
     <ClCompile Include="baseWnd\basewidget.cpp" />
     <ClCompile Include="baseWnd\basewindow.cpp" />
     <ClCompile Include="baseWnd\dragautosizewnd.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="middleWidget\middlewidgets.cpp" />
     <ClCompile Include="middleWidget\midleftwidget.cpp" />
     <ClCompile Include="middleWidget\mvwidget.cpp" />
+    <ClCompile Include="skinWidget\skinwidget.cpp" />
     <ClCompile Include="topWidget\topwidgets.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +277,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="middleWidget\mvwidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="baseWnd\basecommonwnd.h" />
+    <QtMoc Include="skinWidget\skinwidget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

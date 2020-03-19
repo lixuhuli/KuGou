@@ -17,6 +17,7 @@ include(topWidget/topWidget.pri)
 include(middleWidget/middleWidget.pri)
 include(bottomWidget/bottomWidget.pri)
 include(customizeCtrl/customizeCtrl.pri)
+include(skinWidget/skinWidget.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings

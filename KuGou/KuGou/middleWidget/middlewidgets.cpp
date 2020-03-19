@@ -43,6 +43,20 @@ void middleWidgets::InitConnect() {
     connect(&btn_hide_, SIGNAL(toggled(bool)), &left_widget_, SLOT(setVisible(bool)));
 }
 
+void middleWidgets::mousePressEvent(QMouseEvent *e) {
+    setFocus();
+
+    if (cursor().shape() == Qt::SizeHorCursor) {
+        baseWidget::mousePressEvent(e);
+    }
+}
+
+void middleWidgets::mouseReleaseEvent(QMouseEvent *e) {
+    if (cursor().shape() == Qt::SizeHorCursor) {
+        baseWidget::mouseReleaseEvent(e);
+    }
+}
+
 void middleWidgets::mouseMoveEvent(QMouseEvent *e) {
     baseWidget::mouseMoveEvent(e);
 }

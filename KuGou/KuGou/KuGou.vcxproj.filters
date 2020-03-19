@@ -45,6 +45,9 @@
     <Filter Include="customizeCtrl">
       <UniqueIdentifier>{8ca0464b-e79c-430e-8f2f-fdaef0018c9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="skinWidget">
+      <UniqueIdentifier>{fd24b8c9-1637-46ed-a298-0a1218fd9e7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,6 +107,12 @@
     <ClCompile Include="middleWidget\mvwidget.cpp">
       <Filter>middleWidget</Filter>
     </ClCompile>
+    <ClCompile Include="skinWidget\skinwidget.cpp">
+      <Filter>skinWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="baseWnd\basecommonwnd.cpp">
+      <Filter>baseWnd</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -159,6 +168,12 @@
     </QtMoc>
     <QtMoc Include="middleWidget\mvwidget.h">
       <Filter>middleWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="baseWnd\basecommonwnd.h">
+      <Filter>baseWnd</Filter>
+    </QtMoc>
+    <QtMoc Include="skinWidget\skinwidget.h">
+      <Filter>skinWidget</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -16,8 +16,8 @@ protected:
     void InitUi();
     void InitConnect();
 
-    virtual void mousePressEvent(QMouseEvent *) override { setFocus(); }
-    virtual void mouseReleaseEvent(QMouseEvent *) override  {}
+    virtual void mousePressEvent(QMouseEvent *) override;
+    virtual void mouseReleaseEvent(QMouseEvent *) override;
     virtual void mouseMoveEvent(QMouseEvent *) override;
 
 signals:

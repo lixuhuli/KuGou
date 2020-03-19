@@ -194,7 +194,7 @@ void dragAutoSizeWnd::mousePressEvent(QMouseEvent *event) {
 
     if (event->button() == Qt::LeftButton) {
         window_pos_ = this->pos(); // save the prssed position
-        if (QRect(border_ + 1, border_ + 1, width() - (border_ + 1) * 2, height() - (border_ + 1) * 2).contains(QPoint(event->globalX() - x(), event->globalY() - y()))) {
+        if (QRect(border_ + 1, border_ + 1, width() - (border_ + 1) * 2, height() - (border_ + 1) * 2).contains(event->pos())) {
             mouse_pos_ = event->globalPos();
             cursol_pressed_state_ = WinRegion;
         }

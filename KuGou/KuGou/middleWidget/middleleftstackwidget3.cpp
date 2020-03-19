@@ -49,6 +49,9 @@ void middleLeftStackWidget3::InitUi() {
     hLyout->setSpacing(0);
     hLyout->setContentsMargins(0, 0, 0, 0);
 
+    stack_music_widget_.addWidget(new baseWidget(this));
+    stack_music_widget_.addWidget(new baseWidget(this));
+
     vLyout->addLayout(hLyout);
     vLyout->addWidget(&stack_music_widget_);
 

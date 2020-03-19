@@ -48,6 +48,9 @@ void middleLeftStackWidget5::InitUi() {
     hLyout->setSpacing(0);
     hLyout->setContentsMargins(0, 0, 0, 0);
 
+    stack_down_widget_.addWidget(new baseWidget(this));
+    stack_down_widget_.addWidget(new baseWidget(this));
+
     vLyout->addLayout(hLyout);
     vLyout->addWidget(&stack_down_widget_);
 
