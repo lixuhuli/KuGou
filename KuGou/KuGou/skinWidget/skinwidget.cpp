@@ -84,7 +84,7 @@ void skinWidget::InitUi() {
 
 
     scrollArea.setWidget(&skin_con_widget_);
-    //scrollArea.setWidgetResizable(true);
+    scrollArea.setWidgetResizable(true);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

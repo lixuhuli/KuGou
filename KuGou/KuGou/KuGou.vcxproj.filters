@@ -203,5 +203,8 @@
     <QtRcc Include="res_middlewidget.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="res_skinwidget.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

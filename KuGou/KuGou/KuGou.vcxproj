@@ -226,6 +226,7 @@
       <FileType>Document</FileType>
     </QtRcc>
     <QtRcc Include="res_middlewidget.qrc" />
+    <QtRcc Include="res_skinwidget.qrc" />
     <QtRcc Include="res_topwidget.qrc" />
   </ItemGroup>
   <ItemGroup>
