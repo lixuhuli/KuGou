@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include "baseWnd/basewidget.h"
+#include "skinWidget/skinwidget.h"
 
 class QPushButton;
 class topWidgets : public baseWidget {
@@ -40,6 +41,8 @@ private:
     QPushButton m_btnminiframe;
     QPushButton m_btnmini;
     QPushButton m_btnexit;
+
+    skinWidget skin_widget_;
 
 };
 

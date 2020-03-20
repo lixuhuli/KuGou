@@ -113,6 +113,9 @@
     <ClCompile Include="baseWnd\basecommonwnd.cpp">
       <Filter>baseWnd</Filter>
     </ClCompile>
+    <ClCompile Include="skinWidget\skincontentwidget.cpp">
+      <Filter>skinWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -174,6 +177,9 @@
     </QtMoc>
     <QtMoc Include="baseWnd\basecommonwnd.h">
       <Filter>baseWnd</Filter>
+    </QtMoc>
+    <QtMoc Include="skinWidget\skincontentwidget.h">
+      <Filter>skinWidget</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,8 @@
 #include <QLabel>
 
 topWidgets::topWidgets(QWidget *parent)
-    : baseWidget(parent) {
+    : baseWidget(parent)
+    , skin_widget_(parent) {
     InitUi();
     InitConnect();
 }
@@ -188,6 +189,9 @@ void topWidgets::InitUi() {
     main_yout_->setContentsMargins(16, 0, 15, 0);
     setLayout(main_yout_);
 
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    skin_widget_.hide();
 }
 
 void topWidgets::InitConnect() {
@@ -196,4 +200,5 @@ void topWidgets::InitConnect() {
 
     connect(&m_btnexit, SIGNAL(clicked(bool)), mainWnd, SLOT(close()));
     connect(&m_btnmini, SIGNAL(clicked(bool)), mainWnd, SLOT(showMinimized()));
+    connect(&m_btnskin, SIGNAL(clicked(bool)), &skin_widget_, SLOT(exec()));
 }
