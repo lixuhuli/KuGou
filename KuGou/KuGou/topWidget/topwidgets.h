@@ -12,7 +12,7 @@ class topWidgets : public baseWidget {
     Q_OBJECT
 public:
     explicit topWidgets(QWidget *parent = nullptr);
-    virtual ~topWidgets() {}
+    virtual ~topWidgets();
 
 protected:
     virtual void mouseMoveEvent(QMouseEvent*);
@@ -20,6 +20,7 @@ protected:
 signals:
 
 public slots:
+    void onClickSkin(bool);
 
 protected:
     void InitUi();
@@ -42,7 +43,7 @@ private:
     QPushButton m_btnmini;
     QPushButton m_btnexit;
 
-    skinWidget skin_widget_;
+    skinWidget* skin_widget_;
 
 };
 

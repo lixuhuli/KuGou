@@ -4,9 +4,14 @@
 
 topWidgets::topWidgets(QWidget *parent)
     : baseWidget(parent)
-    , skin_widget_(parent) {
+    , skin_widget_(nullptr) {
     InitUi();
     InitConnect();
+}
+
+topWidgets::~topWidgets() {
+    if (skin_widget_) delete skin_widget_;
+    skin_widget_ = nullptr;
 }
 
 void topWidgets::mouseMoveEvent(QMouseEvent* e) {
@@ -188,10 +193,6 @@ void topWidgets::InitUi() {
     main_yout_->setSpacing(0);
     main_yout_->setContentsMargins(16, 0, 15, 0);
     setLayout(main_yout_);
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    skin_widget_.hide();
 }
 
 void topWidgets::InitConnect() {
@@ -200,5 +201,10 @@ void topWidgets::InitConnect() {
 
     connect(&m_btnexit, SIGNAL(clicked(bool)), mainWnd, SLOT(close()));
     connect(&m_btnmini, SIGNAL(clicked(bool)), mainWnd, SLOT(showMinimized()));
-    connect(&m_btnskin, SIGNAL(clicked(bool)), &skin_widget_, SLOT(exec()));
+    connect(&m_btnskin, SIGNAL(clicked(bool)), this, SLOT(onClickSkin(bool)));
+}
+
+void topWidgets::onClickSkin(bool) {
+    if (!skin_widget_) skin_widget_ = new skinWidget(parentWidget());
+    if (skin_widget_) skin_widget_->exec();
 }
