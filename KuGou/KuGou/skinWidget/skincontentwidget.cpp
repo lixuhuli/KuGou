@@ -68,7 +68,7 @@ QPushButton* skinContentWidget::createSkinContentItem() {
     QLabel* used_count = new QLabel(QString::fromLocal8Bit("250人已使用"), item_widget);
     used_count->setStyleSheet(labl_sheet);
     used_count->adjustSize();
-    used_count->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    used_count->setAlignment(Qt::AlignHCenter);
 
     vlyout->addWidget(pic_name);
     vlyout->addSpacing(1);
