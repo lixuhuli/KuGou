@@ -5,6 +5,7 @@
 #include "baseWnd/baseCommonWnd.h"
 #include <QPushButton>
 #include "skincontentwidget.h"
+#include "customizeCtrl/slider.h"
 
 class skinWidget : public baseCommonWnd {
     Q_OBJECT
@@ -19,6 +20,8 @@ protected:
     ////////////////////////////
     void InitMidTopUi(QWidget* widget);
 
+    void InitSkinSliderUi();
+
     virtual bool eventFilter(QObject *, QEvent *) override;
 
 signals:
@@ -28,10 +31,14 @@ signals:
 private:
     QScrollArea scrollArea;
     QPushButton m_btnAdjustWindow;
+    QPushButton m_btnOpacity;
 
     skinContentWidget skin_con_widget_;
 
     baseWidget mid_top_widget_;
+
+    baseWidget slider_widget_;
+    Slider* list_skin_slider_;
 
 private:
 };

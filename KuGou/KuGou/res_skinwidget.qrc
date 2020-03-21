@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/skinwidget/selected.png</file>
+    </qresource>
+</RCC>

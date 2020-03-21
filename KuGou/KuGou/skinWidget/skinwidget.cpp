@@ -4,12 +4,15 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSCrollbar>
+#include <QPainter>
 
 skinWidget::skinWidget(QWidget *parent /*= nullptr*/)
     : baseCommonWnd(parent)
     , mid_top_widget_(&main_widget_)
     , scrollArea(&main_widget_)
-    , skin_con_widget_(&scrollArea) {
+    , skin_con_widget_(&scrollArea)
+    , slider_widget_(&main_widget_)
+    , list_skin_slider_(nullptr) {
     InitUi();
     InitConnect();
 }
@@ -87,18 +90,50 @@ void skinWidget::InitUi() {
     scrollArea.setWidgetResizable(true);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // bottom widget
+    baseWidget* bottom_widget = new baseWidget(&main_widget_);
+    bottom_widget->setStyleSheet("QWidget{background:white}");
+
+    QHBoxLayout *hlyout3 = new QHBoxLayout;
+    hlyout3->setAlignment(Qt::AlignLeft);
+
+    QLabel *label3 = new QLabel(QString::fromLocal8Bit("列表透明"), bottom_widget);
+    label3->setFixedSize(60, 45);
+    label3->setStyleSheet("QLabel{margin-top:25px;background:white;font-size:14px;}");
+
+    m_btnOpacity.setFixedSize(73, 48);
+    m_btnOpacity.setCursor(Qt::PointingHandCursor);
+    m_btnOpacity.setStyleSheet("QPushButton{margin-top:24px;}");
+    m_btnOpacity.setText("0%");
+
+    QPushButton *btnpersonal = new QPushButton(QString::fromLocal8Bit("个性化壁纸"), bottom_widget);
+    btnpersonal->setFixedSize(90, 48);
+    btnpersonal->setCursor(Qt::PointingHandCursor);
+    btnpersonal->setStyleSheet("QPushButton{margin-top:24px;}");
+
+
+    hlyout3->addWidget(label3, 0, Qt::AlignTop);
+    hlyout3->addWidget(&m_btnOpacity, 0, Qt::AlignTop);
+    hlyout3->addStretch();
+    hlyout3->addWidget(btnpersonal, 0, Qt::AlignTop);
+    hlyout3->setSpacing(0);
+    hlyout3->setContentsMargins(20, 0, 19, 0);
+    bottom_widget->setLayout(hlyout3);
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    InitSkinSliderUi();
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     vlyout->addWidget(top_widget);
     vlyout->addWidget(&mid_top_widget_);
     vlyout->addWidget(&scrollArea);
-    vlyout->addWidget(new baseWidget);
+    vlyout->addWidget(bottom_widget);
     vlyout->setSpacing(0);
     vlyout->setContentsMargins(0, 0, 0, 0);
     main_widget_.setLayout(vlyout);
-}
-
-void skinWidget::InitConnect() {
-    mid_top_widget_.installEventFilter(this);
 }
 
 void skinWidget::InitMidTopUi(QWidget* widget) {
@@ -129,6 +164,66 @@ void skinWidget::InitMidTopUi(QWidget* widget) {
 
 }
 
+void skinWidget::InitSkinSliderUi() {
+    slider_widget_.setGeometry(80, 254, 72, 150);
+    slider_widget_.setStyleSheet("QWidget{background:white;border:1px solid rgb(194,194,194);}");
+
+    QHBoxLayout *hlyout = new QHBoxLayout;
+    QVBoxLayout *vlyout = new QVBoxLayout;
+
+    QString sheet_str = QString("QLabel{border:NULL;color:rgb(88,88,88);}");
+    QLabel *label1 = new QLabel("100%", &slider_widget_);
+    label1->setStyleSheet(sheet_str);
+    label1->setFixedHeight(13);
+    label1->adjustSize();
+
+    QLabel *label2 = new QLabel("50%", &slider_widget_);
+    label2->setStyleSheet(sheet_str);
+    label2->setFixedHeight(13);
+    label2->adjustSize();
+
+    QLabel *label3 = new QLabel("0%", &slider_widget_);
+    label3->setStyleSheet(sheet_str);
+    label3->setFixedHeight(13);
+    label3->adjustSize();
+
+    vlyout->addWidget(label1);
+    vlyout->addSpacing(52);
+    vlyout->addWidget(label2);
+    vlyout->addSpacing(52);
+    vlyout->addWidget(label3);
+    vlyout->setSpacing(0);
+    vlyout->setContentsMargins(0, 0, 0, 0);
+
+
+    list_skin_slider_ = new Slider(Qt::Vertical, &slider_widget_);
+    list_skin_slider_->setFixedSize(10, 140);
+    list_skin_slider_->setRange(0, 255);
+    list_skin_slider_->setValue(100);
+    list_skin_slider_->setStyleSheet("QSlider{border:NULL;background:transparent;}"
+        "QSlider::groove:vertical{background:transparent;border-radius:2px;width:3px;}"
+        "QSlider::sub-page:vertical{background:rgb(150, 150, 150);}"
+        "QSlider::add-page:vertical{background:rgb(122,122,122);}"
+        "QSlider::handle:vertical{background:rgb(122, 122, 122); height: 8px; border-radius: 4px; margin-left: -3px;  margin-right: -3px;  }");
+
+    hlyout->addLayout(vlyout);
+    hlyout->addWidget(list_skin_slider_, 0, Qt::AlignRight);
+    hlyout->setSpacing(0);
+    hlyout->setContentsMargins(5, 3, 12, 3);
+    slider_widget_.setLayout(hlyout);
+
+    slider_widget_.raise();
+    slider_widget_.hide();
+}
+
+void skinWidget::InitConnect() {
+    mid_top_widget_.installEventFilter(this);
+    slider_widget_.installEventFilter(this);
+
+    connect(&m_btnOpacity, SIGNAL(clicked(bool)), &slider_widget_, SLOT(show()));
+    connect(&m_btnOpacity, SIGNAL(clicked(bool)), &slider_widget_, SLOT(setFocus()));
+}
+
 bool skinWidget::eventFilter(QObject *o, QEvent *e) {
     if (o == &mid_top_widget_) {
         if (e->type() == QEvent::MouseButtonPress) {
@@ -136,6 +231,19 @@ bool skinWidget::eventFilter(QObject *o, QEvent *e) {
             return true;
         }
         else if (e->type() == QEvent::MouseButtonRelease) {
+            return true;
+        }
+    }
+    else if (o == &slider_widget_) {
+        if (e->type() == QEvent::Leave) {
+            slider_widget_.hide();
+            return true;
+        }
+        else if (e->type() == QEvent::FocusOut) {
+            QRect rc = slider_widget_.rect();
+            auto cur_pos = mapFromGlobal(QCursor::pos());
+            if (!slider_widget_.hasFocus() && !list_skin_slider_->hasFocus())
+                slider_widget_.hide();
             return true;
         }
     }

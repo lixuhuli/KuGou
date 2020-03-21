@@ -1,9 +1,12 @@
 #include "skincontentwidget.h"
 #include <QGridLayout>
 #include <QLabel>
+#include <QDir>
+#include <QApplication>
 
 skinContentWidget::skinContentWidget(QWidget *parent /*= nullptr*/)
-    : baseWidget(parent) {
+    : baseWidget(parent)
+    , skin_item_groups_(this) {
     InitUi();
     InitConnect();
 }
@@ -11,30 +14,67 @@ skinContentWidget::skinContentWidget(QWidget *parent /*= nullptr*/)
 void skinContentWidget::InitUi() {
     setStyleSheet("QWidget{background: white;}");
 
-    QGridLayout *gyout = new QGridLayout;
+    QGridLayout *gyout = new QGridLayout();
     if (!gyout) return;
 
-    auto item = createSkinContentItem();
+    skin_item_groups_.setExclusive(true);
 
+    auto item = createSkinContentItem(QString::fromLocal8Bit(":/image/skin/д╛хо.jpg"));
+    skin_item_groups_.addButton(item, 0);
     gyout->addWidget(item, 0, 0);
+    item->setChecked(true);
+
+    loadFromDir(QApplication::applicationDirPath() + "/skin", gyout);
 
     gyout->setHorizontalSpacing(4);
     gyout->setVerticalSpacing(4);
-    gyout->setContentsMargins(20, 0, 20, 4);
+    gyout->setContentsMargins(20, 0, 20, 0);
 
     setLayout(gyout);
 }
 
 void skinContentWidget::InitConnect() {
+}
+
+void skinContentWidget::loadFromDir(const QString &strdir, QGridLayout *gyout) {
+    if (!gyout) return;
+
+    QDir dir(strdir);
+    if (!dir.exists()) return;
+
+    dir.setFilter(QDir::Files | QDir::NoSymLinks);
+    QFileInfoList list = dir.entryInfoList();
+
+    int count = list.count();
+    if (count <= 0) return;
+
+    int row = 0;
+    int column = 0;
+    for (int i = 1; i < count + 1; i++) {
+        auto file_info = list.value(i - 1);
+        auto suffix = file_info.suffix();
+        if (suffix.compare("png", Qt::CaseInsensitive) == 0
+            || suffix.compare("jpg", Qt::CaseInsensitive) == 0) {
+
+            auto skin_path = file_info.absoluteFilePath();
+            auto item = createSkinContentItem(skin_path);
+            row = i / 4;
+            column = i - row * 4;
+            skin_item_groups_.addButton(item, i);
+            gyout->addWidget(item, row, column);
+        }
+    }
 
 }
 
-QPushButton* skinContentWidget::createSkinContentItem() {
+QPushButton* skinContentWidget::createSkinContentItem(const QString& file_path) {
     skinContentItem* item = new skinContentItem(this);
     if (!item) return nullptr;
 
+    QString sheet_str = QString("QPushButton{border-image:url(%1);}").arg(file_path);
+
     item->setFixedSize(125, 80);
-    item->setStyleSheet(QString::fromLocal8Bit("QPushButton{border-image:url(:/image/skin/д╛хо.jpg);}"));
+    item->setStyleSheet(sheet_str);
     item->setCursor(Qt::PointingHandCursor);
     item->setCheckable(true);
 

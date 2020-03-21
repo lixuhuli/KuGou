@@ -3,7 +3,9 @@
 
 #include "baseWnd/basewidget.h"
 #include <QPushButton>
+#include <QButtonGroup>
 
+class QGridLayout;
 class skinContentWidget : public baseWidget {
     Q_OBJECT
 public:
@@ -14,14 +16,19 @@ protected:
     void InitUi();
     void InitConnect();
 
+    void mousePressEvent(QMouseEvent *) { setFocus(); }
+    void mouseReleaseEvent(QMouseEvent *) {}
+
 private:
-    QPushButton* createSkinContentItem();
+    QPushButton* createSkinContentItem(const QString& file_path);
+    void loadFromDir(const QString &strdir, QGridLayout *gyout);
 
 signals:
 
     public slots :
 
 private:
+    QButtonGroup skin_item_groups_;
 };
 
 

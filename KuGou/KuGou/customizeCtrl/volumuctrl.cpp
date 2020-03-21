@@ -11,7 +11,8 @@ VolumuCtrl::VolumuCtrl(const QString &text, QWidget *parent /*= nullptr*/)
 }
 
 volSliderWidget::volSliderWidget(QWidget* parent /*= 0*/)
- : baseWidget(parent) {
+ : baseWidget(parent)
+ , m_slider(nullptr) {
     InitUi();
     InitConnect();
 }
