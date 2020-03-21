@@ -18,6 +18,7 @@ public:
     virtual ~midLeftWidget() {}
 
     void setTransStatus(bool isTrans);
+    void setWidgetOpacity(int value);
 
 protected:
     void InitUi();

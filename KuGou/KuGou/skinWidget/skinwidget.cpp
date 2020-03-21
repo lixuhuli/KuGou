@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QSCrollbar>
 #include <QPainter>
+#include "mainWnd/mainwnd.h"
 
 skinWidget::skinWidget(QWidget *parent /*= nullptr*/)
     : baseCommonWnd(parent)
@@ -199,7 +200,7 @@ void skinWidget::InitSkinSliderUi() {
     list_skin_slider_ = new Slider(Qt::Vertical, &slider_widget_);
     list_skin_slider_->setFixedSize(10, 140);
     list_skin_slider_->setRange(0, 255);
-    list_skin_slider_->setValue(100);
+    list_skin_slider_->setValue(0);
     list_skin_slider_->setStyleSheet("QSlider{border:NULL;background:transparent;}"
         "QSlider::groove:vertical{background:transparent;border-radius:2px;width:3px;}"
         "QSlider::sub-page:vertical{background:rgb(150, 150, 150);}"
@@ -222,6 +223,12 @@ void skinWidget::InitConnect() {
 
     connect(&m_btnOpacity, SIGNAL(clicked(bool)), &slider_widget_, SLOT(show()));
     connect(&m_btnOpacity, SIGNAL(clicked(bool)), &slider_widget_, SLOT(setFocus()));
+    if (list_skin_slider_) {
+        connect(list_skin_slider_, SIGNAL(valueChanged(int)), mainWnd::getInstance()->middle_widget(), SLOT(setLeftWidgetOpacity(int)));
+        connect(list_skin_slider_, SIGNAL(valueChanged(int)), this, SLOT(onSliderOpacity(int)));
+        list_skin_slider_->setValue(100);
+    }
+
 }
 
 bool skinWidget::eventFilter(QObject *o, QEvent *e) {
@@ -249,4 +256,9 @@ bool skinWidget::eventFilter(QObject *o, QEvent *e) {
     }
 
     return baseCommonWnd::eventFilter(o, e);
+}
+
+void skinWidget::onSliderOpacity(int value) {
+    QString str = QString("%1%").arg(100 * value / 255);
+    m_btnOpacity.setText(str);
 }

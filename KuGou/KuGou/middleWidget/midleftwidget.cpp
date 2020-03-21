@@ -27,6 +27,11 @@ void midLeftWidget::setTransStatus(bool isTrans) {
     update();
 }
 
+void midLeftWidget::setWidgetOpacity(int value) {
+    bg_color_ = QColor(255, 255, 255, value);
+    update();
+}
+
 void midLeftWidget::InitUi() {
     setMinimumWidth(310);
     setMaximumWidth(380);

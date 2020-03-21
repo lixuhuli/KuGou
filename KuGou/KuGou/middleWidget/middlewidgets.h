@@ -24,6 +24,7 @@ signals:
 
 public slots:
     void setBackgroundstatus(bool isTransparent);
+    void setLeftWidgetOpacity(int value);
 
 private:
     midLeftWidget left_widget_;

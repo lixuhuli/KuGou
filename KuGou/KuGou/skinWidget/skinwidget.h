@@ -26,7 +26,8 @@ protected:
 
 signals:
 
-    public slots :
+public slots :
+    void onSliderOpacity(int value);
 
 private:
     QScrollArea scrollArea;

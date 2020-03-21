@@ -73,3 +73,7 @@ void middleWidgets::setBackgroundstatus(bool isTransparent) {
         btn_hide_.setChecked(true);
     }
 }
+
+void middleWidgets::setLeftWidgetOpacity(int value) {
+    left_widget_.setWidgetOpacity(value);
+}

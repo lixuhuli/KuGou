@@ -20,6 +20,7 @@ public:
 
 public:
     void setCurVol(int);
+    baseWidget* middle_widget() { return &mid_widget_; }
 
 protected:
     void InitUi();
