@@ -4,6 +4,7 @@
 #include "baseWnd/basewidget.h"
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QSignalMapper>
 
 class QGridLayout;
 class skinContentWidget : public baseWidget {
@@ -24,11 +25,13 @@ private:
     void loadFromDir(const QString &strdir, QGridLayout *gyout);
 
 signals:
+    void setClientSkin(const QString& skin);
 
     public slots :
 
 private:
     QButtonGroup skin_item_groups_;
+    QSignalMapper item_mapper_;
 };
 
 

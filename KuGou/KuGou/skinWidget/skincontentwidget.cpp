@@ -6,7 +6,8 @@
 
 skinContentWidget::skinContentWidget(QWidget *parent /*= nullptr*/)
     : baseWidget(parent)
-    , skin_item_groups_(this) {
+    , skin_item_groups_(this)
+    , item_mapper_(this) {
     InitUi();
     InitConnect();
 }
@@ -19,10 +20,14 @@ void skinContentWidget::InitUi() {
 
     skin_item_groups_.setExclusive(true);
 
-    auto item = createSkinContentItem(QString::fromLocal8Bit(":/image/skin/д╛хо.jpg"));
+    QString str_skin = QString::fromLocal8Bit(":/image/skin/д╛хо.jpg");
+    auto item = createSkinContentItem(str_skin);
     skin_item_groups_.addButton(item, 0);
     gyout->addWidget(item, 0, 0);
     item->setChecked(true);
+
+    connect(item, SIGNAL(clicked(bool)), &item_mapper_, SLOT(map()));
+    item_mapper_.setMapping(item, str_skin);
 
     loadFromDir(QApplication::applicationDirPath() + "/skin", gyout);
 
@@ -34,6 +39,7 @@ void skinContentWidget::InitUi() {
 }
 
 void skinContentWidget::InitConnect() {
+    connect(&item_mapper_, SIGNAL(mapped(QString)), this, SIGNAL(setClientSkin(QString)));
 }
 
 void skinContentWidget::loadFromDir(const QString &strdir, QGridLayout *gyout) {
@@ -62,6 +68,9 @@ void skinContentWidget::loadFromDir(const QString &strdir, QGridLayout *gyout) {
             column = i - row * 4;
             skin_item_groups_.addButton(item, i);
             gyout->addWidget(item, row, column);
+
+            connect(item, SIGNAL(clicked(bool)), &item_mapper_, SLOT(map()));
+            item_mapper_.setMapping(item, skin_path);
         }
     }
 

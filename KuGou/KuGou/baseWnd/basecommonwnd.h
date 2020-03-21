@@ -19,6 +19,9 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event) override;
     virtual void mouseMoveEvent(QMouseEvent *event) override;
 
+public slots:
+    void setSkin(const QString &str);
+
 private:
     int border_;
     eCursorPressedState cursol_pressed_state_;

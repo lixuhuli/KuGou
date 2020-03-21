@@ -42,6 +42,10 @@ void baseWindow::paintEvent(QPaintEvent *e) {
     }
 }
 
+void baseWindow::setSkin(const QString &str) {
+    main_widget_.setSkinPic(str);
+}
+
 void baseWindow::set_contents_margins(const QRect& rc) {
     contents_margins_ = rc;
 }

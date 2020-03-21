@@ -229,6 +229,8 @@ void skinWidget::InitConnect() {
         list_skin_slider_->setValue(100);
     }
 
+    connect(&skin_con_widget_, SIGNAL(setClientSkin(QString)), this, SLOT(setSkin(QString)));
+    connect(&skin_con_widget_, SIGNAL(setClientSkin(QString)), mainWnd::getInstance(), SLOT(setSkin(QString)));
 }
 
 bool skinWidget::eventFilter(QObject *o, QEvent *e) {

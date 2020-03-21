@@ -9,6 +9,7 @@ Widget::Widget(QWidget *parent)
 void Widget::setSkinPic(const QString &skin) {
     skin_pic_.load(skin);
     skin_path_ = skin;
+    update();
 }
 
 void Widget::paintEvent(QPaintEvent *e) {

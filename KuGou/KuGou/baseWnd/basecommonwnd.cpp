@@ -75,3 +75,7 @@ void baseCommonWnd::mouseReleaseEvent(QMouseEvent *) {
     mouse_pos_.setY(0);
     cursol_pressed_state_ = UnPressed;
 }
+
+void baseCommonWnd::setSkin(const QString &str) {
+    main_widget_.setSkinPic(str);
+}

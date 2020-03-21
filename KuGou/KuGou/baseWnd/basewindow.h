@@ -15,6 +15,9 @@ public:
 protected:
     virtual void paintEvent(QPaintEvent *);
 
+public slots:
+    void setSkin(const QString &str);
+
 public:
     void set_contents_margins(const QRect& rc);
     const QRect& contents_margins() { return contents_margins_; }
