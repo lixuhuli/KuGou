@@ -26,7 +26,7 @@ void skinWidget::InitUi() {
     setFixedSize(570, 450);
 
     main_widget_.setStyleSheet("QWidget{background:transparent;}");
-    main_widget_.setSkinPic(QString::fromLocal8Bit(":/image/skin/д╛хо.jpg"));
+    main_widget_.setSkinPic(":/ID_DEFAULT_SKIN_PIC");
 
     //////////////////////////////////////////////////////////////////////////////////////////
     //top widget

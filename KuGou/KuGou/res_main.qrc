@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/skin/默认.jpg</file>
+        <file alias="ID_DEFAULT_SKIN_PIC">image/skin/默认.jpg</file>
     </qresource>
 </RCC>

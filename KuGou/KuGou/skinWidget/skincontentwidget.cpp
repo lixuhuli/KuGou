@@ -20,7 +20,7 @@ void skinContentWidget::InitUi() {
 
     skin_item_groups_.setExclusive(true);
 
-    QString str_skin = QString::fromLocal8Bit(":/image/skin/Ä¬ÈÏ.jpg");
+    QString str_skin(":/ID_DEFAULT_SKIN_PIC");
     auto item = createSkinContentItem(str_skin);
     skin_item_groups_.addButton(item, 0);
     gyout->addWidget(item, 0, 0);

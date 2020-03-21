@@ -16,8 +16,7 @@ mainWnd::mainWnd(QWidget *parent)
     resize(1008, 698);
 
     main_widget_.setStyleSheet("QLabel{color:white;}" "QWidget{background:transparent;}");
-    //main_widget_.setStyleSheet(QString::fromLocal8Bit("border-image:url(:/image/skin/д╛хо.jpg);"));
-    main_widget_.setSkinPic(QString::fromLocal8Bit(":/image/skin/д╛хо.jpg"));
+    main_widget_.setSkinPic(":/ID_DEFAULT_SKIN_PIC");
 
     //top_widget_.setStyleSheet("topWidgets{background:blue;}");
 
