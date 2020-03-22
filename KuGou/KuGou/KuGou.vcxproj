@@ -194,6 +194,7 @@
     <ClCompile Include="middleWidget\middlewidgets.cpp" />
     <ClCompile Include="middleWidget\midleftwidget.cpp" />
     <ClCompile Include="middleWidget\mvwidget.cpp" />
+    <ClCompile Include="middleWidget\stackcontentitem.cpp" />
     <ClCompile Include="skinWidget\skincontentwidget.cpp" />
     <ClCompile Include="skinWidget\skinwidget.cpp" />
     <ClCompile Include="topWidget\topwidgets.cpp" />
@@ -286,6 +287,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="skinWidget\skincontentwidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="middleWidget\stackcontentitem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

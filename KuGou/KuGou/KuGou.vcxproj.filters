@@ -116,6 +116,9 @@
     <ClCompile Include="skinWidget\skincontentwidget.cpp">
       <Filter>skinWidget</Filter>
     </ClCompile>
+    <ClCompile Include="middleWidget\stackcontentitem.cpp">
+      <Filter>middleWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainWnd\mainwnd.h">
@@ -180,6 +183,9 @@
     </QtMoc>
     <QtMoc Include="skinWidget\skincontentwidget.h">
       <Filter>skinWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="middleWidget\stackcontentitem.h">
+      <Filter>middleWidget</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
