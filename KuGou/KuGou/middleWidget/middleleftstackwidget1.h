@@ -25,6 +25,8 @@ signals:
 private:
     QGridLayout* content_layout_;
     QButtonGroup content_item_groups_;
+
+    int content_item_id_;
 };
 
 #endif // MIDDLELEFTSTACKWIDGET1_H

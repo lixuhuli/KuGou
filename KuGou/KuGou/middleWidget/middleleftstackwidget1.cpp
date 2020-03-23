@@ -9,6 +9,7 @@
 middleLeftStackWidget1::middleLeftStackWidget1(QWidget *parent /*= nullptr*/)
     : baseWidget(parent)
     , content_layout_(nullptr) 
+    , content_item_id_(0)
     , content_item_groups_(this) {
     InitUi();
     InitConnect();
@@ -37,18 +38,19 @@ void middleLeftStackWidget1::InitUi() {
     scrollArea->setWidgetResizable(true);
 
     content_layout_ = new QGridLayout(content_widget);
+    content_item_groups_.setParent(content_widget);
 
-    auto item = new stackContentItem(content_widget);
-    content_layout_->addWidget(item, 0, 0);
-    content_item_groups_.addButton(item, 0);
+    auto item = new stackContentItem(content_item_id_, content_widget);
+    content_item_groups_.addButton(item, content_item_id_);
+    content_layout_->addWidget(item);
 
-    auto item2 = new stackContentItem(content_widget);
-    content_layout_->addWidget(item2, 1, 0);
-    content_item_groups_.addButton(item2, 1);
-
-    auto item3 = new stackContentItem(content_widget);
-    content_layout_->addWidget(item3, 2, 0);
-    content_item_groups_.addButton(item3, 2);
+    auto item2 = new stackContentItem(content_item_id_, content_widget);
+    content_item_groups_.addButton(item2);
+    content_layout_->addWidget(item2);
+    
+    auto item3 = new stackContentItem(content_item_id_, content_widget);
+    content_layout_->addWidget(item3);
+    content_item_groups_.addButton(item3);
 
     content_item_groups_.setExclusive(true);
 

@@ -32,6 +32,7 @@ signals:
 private:
     QButtonGroup skin_item_groups_;
     QSignalMapper item_mapper_;
+    QString play_list_name_;
 };
 
 
