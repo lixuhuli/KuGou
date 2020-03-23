@@ -12,6 +12,7 @@ public:
     virtual ~stackContentItem() {}
 
     void setEnabledMenuItem(bool isSetting = false); //menu!!
+    void setExpand(bool expand);
 
 protected:
     void InitUi();
@@ -21,15 +22,18 @@ protected:
     virtual void paintEvent(QPaintEvent *) override;
 
 signals:
+    void addContentItem();
 
 public slots :
     void onContentSelected(bool checked);
     void onTopButtonSelected(bool checked);
-    void onTrackMenu();
+    void onTrackMenu();  
 
 private:
     QString play_list_name_;
     QLabel* lbl_play_list_;
+    QWidget* leave_widget_;
+    QPushButton* top_button_;
     QMenu m_menu;
 
 };

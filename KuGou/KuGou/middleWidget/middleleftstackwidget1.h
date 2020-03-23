@@ -21,7 +21,8 @@ private:
 
 signals:
 
-    public slots :
+public slots :
+    void addContentItem();
 
 private:
     QGridLayout* content_layout_;
