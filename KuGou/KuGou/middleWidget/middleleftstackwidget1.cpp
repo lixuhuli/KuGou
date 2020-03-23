@@ -40,17 +40,23 @@ void middleLeftStackWidget1::InitUi() {
     content_layout_ = new QGridLayout(content_widget);
     content_item_groups_.setParent(content_widget);
 
-    auto item = new stackContentItem(content_item_id_, content_widget);
-    content_item_groups_.addButton(item, content_item_id_);
-    content_layout_->addWidget(item);
+    default_item_ = new stackContentItem(QString::fromLocal8Bit("默认列表"), content_widget);
+    content_item_groups_.addButton(default_item_);
+    content_layout_->addWidget(default_item_);
+    default_item_->setEnabledMenuItem(false);
 
-    auto item2 = new stackContentItem(content_item_id_, content_widget);
-    content_item_groups_.addButton(item2);
-    content_layout_->addWidget(item2);
+    love_item_ = new stackContentItem(QString::fromLocal8Bit("我的最爱"), content_widget);
+    content_item_groups_.addButton(love_item_);
+    content_layout_->addWidget(love_item_);
+    love_item_->setEnabledMenuItem(false);
     
-    auto item3 = new stackContentItem(content_item_id_, content_widget);
-    content_layout_->addWidget(item3);
-    content_item_groups_.addButton(item3);
+    auto item = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget);
+    content_layout_->addWidget(item);
+    content_item_groups_.addButton(item, content_item_id_++);
+
+    auto item2 = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget);
+    content_layout_->addWidget(item2);
+    content_item_groups_.addButton(item2, content_item_id_++);
 
     content_item_groups_.setExclusive(true);
 

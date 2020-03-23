@@ -6,6 +6,7 @@
 
 class QGridLayout;
 class QPushButton;
+class stackContentItem;
 class middleLeftStackWidget1 : public baseWidget {
     Q_OBJECT
 public:
@@ -25,6 +26,9 @@ signals:
 private:
     QGridLayout* content_layout_;
     QButtonGroup content_item_groups_;
+
+    stackContentItem* default_item_;
+    stackContentItem* love_item_;
 
     int content_item_id_;
 };

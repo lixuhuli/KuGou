@@ -3,16 +3,20 @@
 
 #include <QPushButton>
 #include <QLabel>
+#include <QMenu>
 
 class stackContentItem : public QPushButton {
     Q_OBJECT
 public:
-    explicit stackContentItem(int& id, QWidget *parent = nullptr);
+    explicit stackContentItem(const QString& name, QWidget *parent = nullptr);
     virtual ~stackContentItem() {}
+
+    void setEnabledMenuItem(bool isSetting = false); //menu!!
 
 protected:
     void InitUi();
     void InitConnect();
+    void initMenu();
 
     virtual void paintEvent(QPaintEvent *) override;
 
@@ -21,11 +25,12 @@ signals:
 public slots :
     void onContentSelected(bool checked);
     void onTopButtonSelected(bool checked);
+    void onTrackMenu();
 
 private:
     QString play_list_name_;
-
     QLabel* lbl_play_list_;
+    QMenu m_menu;
 
 };
 
