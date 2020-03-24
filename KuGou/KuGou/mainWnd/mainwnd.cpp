@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QSize>
+#include <QWidgetAction>
 
 QMutex mainWnd::mutex_;
 QAtomicPointer<mainWnd> mainWnd::main_wnd_ = nullptr;
@@ -10,7 +11,9 @@ mainWnd::mainWnd(QWidget *parent)
     : baseWindow(parent)
     , top_widget_(this)
     , mid_widget_(this)
-    , bottom_widget_(this) {
+    , bottom_widget_(this)
+    , tray_vol_widget_(nullptr) 
+    , tray_vol_slider_(nullptr) {
 
     // 增加属性  使点击任务栏可以最大化和最小化
     setWindowFlags(windowFlags() | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
@@ -66,6 +69,10 @@ void mainWnd::InitTrayMenu() {
     tray_menu_.setFixedHeight(200);
     tray_menu_.setContentsMargins(4, 5, 4, 10);
 
+    InitVolItem();
+
+    tray_menu_.addSeparator();
+
     auto* act_dest_lyric = new QAction(QIcon(":/image/trayMenu/menu_lrc.png"), QString::fromLocal8Bit("显示桌面歌词"));
     auto* act_lock_lyric = new QAction(QIcon(":/image/trayMenu/menu_lock.png"), QString::fromLocal8Bit("锁定歌词"));
     auto* act_setting = new QAction(QIcon(":/image/trayMenu/menu_setting.png"), QString::fromLocal8Bit("选项设置"));
@@ -80,7 +87,7 @@ void mainWnd::InitTrayMenu() {
     tray_menu_.addAction(act_login);
     tray_menu_.addAction(act_exit);
 
-
+    connect(act_exit, SIGNAL(triggered(bool)), this, SLOT(slot_quitApp()));
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     system_tray_.setContextMenu(&tray_menu_);
@@ -89,8 +96,52 @@ void mainWnd::InitTrayMenu() {
     system_tray_.show();
 }
 
+void mainWnd::InitVolItem() {
+    auto* act_vol = new QWidgetAction(&tray_menu_);
+    if (!act_vol) return;
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    tray_vol_widget_ = new baseWidget(&tray_menu_);
+
+    tray_vol_widget_->setFixedSize(190, 30);
+
+    QHBoxLayout *hlyout = new QHBoxLayout;
+    hlyout->setAlignment(Qt::AlignLeft);
+
+    QRadioButton* tray_vol_btn = new QRadioButton;
+    tray_vol_btn->setFixedSize(16, 16);
+    tray_vol_btn->setCursor(QCursor(Qt::PointingHandCursor));
+    tray_vol_btn->setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 16 0 48;}"
+        "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 16 0 48;}"
+        "QRadioButton::indicator::checked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 0 0 64;}"
+        "QRadioButton::indicator::checked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 0 0 64;}"
+        "QRadioButton::indicator{width:16px;height:16px;}");
+
+    tray_vol_slider_ = new Slider(Qt::Horizontal, tray_vol_widget_); 
+    tray_vol_slider_->setFixedSize(140, 20);
+    tray_vol_slider_->setStyleSheet("QSlider::groove:horizontal{border-radius:2px;height:2px;}"
+        "QSlider::sub-page:horizontal{background:rgb(104,104,104);}"
+        "QSlider::add-page:horizontal{background:rgb(209,209,209);}"
+        "QSlider::handle:horizontal{background:rgb(104,104,104);width:8px;border-radius:4px;margin:-3px 0px -3px 0px;}");
+
+    hlyout->addWidget(tray_vol_btn);
+    hlyout->addWidget(tray_vol_slider_);
+    hlyout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    hlyout->setContentsMargins(12, 0, 0, 0);
+    tray_vol_widget_->setLayout(hlyout);
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    act_vol->setDefaultWidget(tray_vol_widget_);
+    tray_menu_.addAction(act_vol);
+    tray_vol_widget_->raise();
+}
+
 void mainWnd::InitConnect() {
     connect(&system_tray_, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(systemTrayActived(QSystemTrayIcon::ActivationReason)));
+
+    connect(tray_vol_slider_, SIGNAL(valueChanged(int)), this, SLOT(setVolSliderStatus(int)));
+    tray_vol_slider_->setValue(80);
 }
 
 void mainWnd::mouseDoubleClickEvent(QMouseEvent *e) {
@@ -127,4 +178,13 @@ void mainWnd::systemTrayActived(QSystemTrayIcon::ActivationReason reason) {
     default:
         break;
     }
+}
+
+void mainWnd::slot_quitApp() {
+    system_tray_.hide();
+    close();
+}
+
+void mainWnd::setVolSliderStatus(int volume) {
+
 }

@@ -28,6 +28,7 @@ protected:
     void InitUi();
     void InitConnect();
     void InitTrayMenu();
+    void InitVolItem();
 
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *) override;
@@ -44,11 +45,15 @@ private:
     QSystemTrayIcon system_tray_;
     QMenu tray_menu_;
 
+    baseWidget* tray_vol_widget_;
+    Slider* tray_vol_slider_;
+
 signals:
 
 public slots :
     void systemTrayActived(QSystemTrayIcon::ActivationReason reason);
-    
+    void slot_quitApp();
+    void setVolSliderStatus(int volume);
 
 };
 
