@@ -44,9 +44,9 @@ void stackContentItem::InitUi() {
     lbl_play_list_->setStyleSheet(QString::fromLocal8Bit("QLabel{color:rgb(38,38,38);font: 14px ºÚÌå;}"));
 
     QPushButton* btn_menu = new QPushButton(top_button_);
-    btn_menu->setFixedSize(16, 16);
+    btn_menu->setFixedSize(40, 40);
     btn_menu->setCursor(Qt::PointingHandCursor);
-    btn_menu->setStyleSheet("QPushButton{border-image:url(:/image/middlewidget/indicator_menu (1).png);}"
+    btn_menu->setStyleSheet("QPushButton{border-image:url(:/image/middlewidget/indicator_menu (1).png);margin:12 14 12 10;}"
         "QPushButton:hover{border-image:url(:/image/middlewidget/indicator_menu (2).png);}"
         "QPushButton:pressed{border-image:url(:/image/middlewidget/indicator_menu (3).png);}");
     connect(btn_menu, SIGNAL(clicked(bool)), this, SLOT(onTrackMenu()));
@@ -55,7 +55,7 @@ void stackContentItem::InitUi() {
     hlyout->setSpacing(0);
     hlyout->addSpacerItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Fixed));
     hlyout->addWidget(btn_menu);
-    hlyout->setContentsMargins(18, 0, 14, 0);
+    hlyout->setContentsMargins(18, 0, 0, 0);
     top_button_->setLayout(hlyout);
 
     initMenu();
