@@ -18,18 +18,22 @@ protected:
     void InitUi();
     void InitConnect();
 
+    virtual void resizeEvent(QResizeEvent *) override;
+
 private:
 
 signals:
 
 public slots :
     void addContentItem();
+    void delContentItem(stackContentItem*);
 
     // 自动刷新滚动区域的高度，这样当滚动条出来之后，增加item元素界面不会抖动
     void setAutoLayout();
 
 private:
     QVBoxLayout* content_layout_;
+    baseWidget* content_widget_;
     QButtonGroup content_item_groups_;
 
     stackContentItem* default_item_;

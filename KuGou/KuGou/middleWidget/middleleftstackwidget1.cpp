@@ -10,6 +10,7 @@ middleLeftStackWidget1::middleLeftStackWidget1(QWidget *parent /*= nullptr*/)
     : baseWidget(parent)
     , content_layout_(nullptr) 
     , content_item_id_(0)
+    , content_widget_(nullptr)
     , content_item_groups_(this) {
     InitUi();
     InitConnect();
@@ -33,14 +34,14 @@ void middleLeftStackWidget1::InitUi() {
         "QScrollBar::sub-line:vertical{border:1px rgb(230,230,230,150);height: 1px;}"
         "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {background:transparent;}");
 
-    baseWidget* content_widget = new baseWidget(scrollArea);
-    scrollArea->setWidget(content_widget);
+    content_widget_ = new baseWidget(scrollArea);
+    scrollArea->setWidget(content_widget_);
     scrollArea->setWidgetResizable(true);
 
-    content_layout_ = new QVBoxLayout(content_widget);
-    content_item_groups_.setParent(content_widget);
+    content_layout_ = new QVBoxLayout(content_widget_);
+    content_item_groups_.setParent(content_widget_);
 
-    default_item_ = new stackContentItem(QString::fromLocal8Bit("默认列表"), content_widget);
+    default_item_ = new stackContentItem(QString::fromLocal8Bit("默认列表"), content_widget_);
     content_item_groups_.addButton(default_item_);
     content_layout_->addWidget(default_item_);
     default_item_->setEnabledMenuItem(false);
@@ -48,7 +49,7 @@ void middleLeftStackWidget1::InitUi() {
     connect(default_item_, SIGNAL(needSetLayout()), this, SLOT(setAutoLayout()));
     default_item_->setExpand(true);
 
-    love_item_ = new stackContentItem(QString::fromLocal8Bit("我的最爱"), content_widget);
+    love_item_ = new stackContentItem(QString::fromLocal8Bit("我的最爱"), content_widget_);
     content_item_groups_.addButton(love_item_);
     content_layout_->addWidget(love_item_);
     love_item_->setEnabledMenuItem(false);
@@ -62,7 +63,7 @@ void middleLeftStackWidget1::InitUi() {
     content_layout_->setAlignment(Qt::AlignTop);
     content_layout_->setSpacing(0);
     content_layout_->setContentsMargins(0, 0, 0, 0);
-    content_widget->setLayout(content_layout_);
+    content_widget_->setLayout(content_layout_);
 
     vlyout->addWidget(scrollArea);
     vlyout->setSpacing(0);
@@ -75,25 +76,29 @@ void middleLeftStackWidget1::InitConnect() {
 }
 
 void middleLeftStackWidget1::addContentItem() {
-    if (!content_layout_) return;
-    auto content_widget = qobject_cast<baseWidget *>(content_layout_->parentWidget());
-    if (!content_widget) return;
+    if (!content_layout_ || !content_widget_) return;
 
-    auto item = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget);
+    auto item = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget_);
     content_layout_->addWidget(item);
     content_item_groups_.addButton(item, content_item_id_++);
     connect(item, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
     connect(item, SIGNAL(needSetLayout()), this, SLOT(setAutoLayout()));
+    connect(item, SIGNAL(delContentItem(stackContentItem*)), this, SLOT(delContentItem(stackContentItem*)));
     item->setExpand(true);
 
     // 刷新区域高度，这样避免滚动条出来之后，每次添加item元素界面都会抖动
     setAutoLayout();
 }
 
-void middleLeftStackWidget1::setAutoLayout() {
+void middleLeftStackWidget1::delContentItem(stackContentItem* item) {
     if (!content_layout_) return;
-    auto content_widget = qobject_cast<baseWidget *>(content_layout_->parentWidget());
-    if (!content_widget) return;
+    content_layout_->removeWidget(item);
+
+    setAutoLayout();
+}
+
+void middleLeftStackWidget1::setAutoLayout() {
+    if (!content_layout_ || !content_widget_) return;
 
     int height = 0;
     int count = content_layout_->count();
@@ -104,5 +109,12 @@ void middleLeftStackWidget1::setAutoLayout() {
         }
     }
 
-    content_widget->setMinimumHeight(height);
+    content_widget_->setMinimumHeight(height);
+}
+
+void middleLeftStackWidget1::resizeEvent(QResizeEvent *e) {
+    baseWidget::resizeEvent(e);
+
+    if (!content_widget_) return;
+    content_widget_->setFixedWidth(width());
 }

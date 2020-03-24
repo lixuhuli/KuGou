@@ -23,12 +23,14 @@ protected:
 
 signals:
     void addContentItem();
+    void delContentItem(stackContentItem*);
     void needSetLayout();
 
 public slots :
     void onContentSelected(bool checked);
     void onTopButtonSelected(bool checked);
     void onTrackMenu();  
+    void onDelContentItem();
 
 private:
     QString play_list_name_;

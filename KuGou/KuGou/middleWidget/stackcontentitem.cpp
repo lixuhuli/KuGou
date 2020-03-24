@@ -22,9 +22,6 @@ stackContentItem::stackContentItem(const QString& name, QWidget *parent /*= null
 void stackContentItem::InitUi() {
     setFixedHeight(40);
 
-    //setFixedWidth(310);
-    //setStyleSheet("QPushButton{border:1px solid red;}");
-
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     QVBoxLayout *vlyout = new QVBoxLayout(this);
@@ -127,6 +124,7 @@ void stackContentItem::initMenu() {
         "QMenu::separator{height:1px;background: rgb(209,209,209);margin:4px 0px 4px 0px;}").arg(QString::fromLocal8Bit("微软雅黑")));
 
     auto add_item = new QAction(QString::fromLocal8Bit("新建列表"));
+    auto del_item = new QAction(QString::fromLocal8Bit("删除列表"));
 
     m_menu.addAction(add_item);
     m_menu.addSeparator();
@@ -140,7 +138,7 @@ void stackContentItem::initMenu() {
     m_menu.addAction(new QAction(QString::fromLocal8Bit("收藏整个列表")));
     m_menu.addSeparator();
     m_menu.addAction(new QAction(QString::fromLocal8Bit("清空列表")));
-    m_menu.addAction(new QAction(QString::fromLocal8Bit("删除列表")));
+    m_menu.addAction(del_item);
     m_menu.addAction(new QAction(QString::fromLocal8Bit("重命名")));
 
     QMenu* sub_menu = new QMenu(QString::fromLocal8Bit("子菜单功能"), &m_menu);
@@ -150,6 +148,7 @@ void stackContentItem::initMenu() {
     sub_menu->addAction(new QAction(QString::fromLocal8Bit("子类扩展2")));
 
     connect(add_item, SIGNAL(triggered(bool)), this, SIGNAL(addContentItem()));
+    connect(del_item, SIGNAL(triggered(bool)), this, SLOT(onDelContentItem()));
 
     m_menu.setContentsMargins(4, 10, 3, 10);
 }
@@ -198,4 +197,8 @@ void stackContentItem::onTopButtonSelected(bool checked) {
 
 void stackContentItem::onTrackMenu() {
     m_menu.exec(QCursor::pos());
+}
+
+void stackContentItem::onDelContentItem() {
+    delContentItem(this);
 }
