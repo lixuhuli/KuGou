@@ -41,6 +41,7 @@ RESOURCES += \
     res_topwidget.qrc \
     res_bottomwidget.qrc \
     res_middlewidget.qrc \
-    res_skinwidget.qrc
+    res_skinwidget.qrc \
+    res_traymenu.qrc
 
 RC_FILE = image/main/kwgou.rc

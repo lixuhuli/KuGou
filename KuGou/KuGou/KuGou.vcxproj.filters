@@ -212,6 +212,9 @@
     <QtRcc Include="res_skinwidget.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="res_traymenu.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="image\main\kwgou.rc">

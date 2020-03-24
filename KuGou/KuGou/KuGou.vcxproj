@@ -229,6 +229,7 @@
     <QtRcc Include="res_middlewidget.qrc" />
     <QtRcc Include="res_skinwidget.qrc" />
     <QtRcc Include="res_topwidget.qrc" />
+    <QtRcc Include="res_traymenu.qrc" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="baseWnd\dragautosizewnd.h" />

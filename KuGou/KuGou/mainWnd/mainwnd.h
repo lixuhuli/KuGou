@@ -3,10 +3,12 @@
 
 #include <QDialog>
 #include <QMutex>
+#include <QSystemTrayIcon>
 #include "baseWnd/basewindow.h"
 #include "topWidget/topwidgets.h"
 #include "middleWidget/middlewidgets.h"
 #include "bottomWidget/bottomwidgets.h"
+#include <QMenu>
 
 class mainWnd : public baseWindow {
     friend class baseWidget;
@@ -25,9 +27,11 @@ public:
 protected:
     void InitUi();
     void InitConnect();
+    void InitTrayMenu();
 
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *) override;
+    virtual void closeEvent(QCloseEvent *event) override;
 
 private:
     static QMutex mutex_;                          // ÊµÀý»¥³âËø¡£
@@ -37,9 +41,13 @@ private:
     middleWidgets mid_widget_;
     bottomWidgets bottom_widget_;
 
+    QSystemTrayIcon system_tray_;
+    QMenu tray_menu_;
+
 signals:
 
 public slots :
+    void systemTrayActived(QSystemTrayIcon::ActivationReason reason);
     
 
 };

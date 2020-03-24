@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file alias="ID_DEFAULT_SKIN_PIC">image/skin/默认.jpg</file>
+        <file>image/main/trayIcon.png</file>
     </qresource>
 </RCC>
