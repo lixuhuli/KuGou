@@ -192,6 +192,8 @@ void stackContentItem::onTopButtonSelected(bool checked) {
         setFixedHeight(40);
         if (leave_widget_) leave_widget_->hide();
     }
+
+    needSetLayout();
 }
 
 void stackContentItem::onTrackMenu() {

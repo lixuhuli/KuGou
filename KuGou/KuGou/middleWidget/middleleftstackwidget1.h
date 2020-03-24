@@ -4,6 +4,7 @@
 #include <QButtonGroup>
 #include "baseWnd/basewidget.h"
 
+class QVBoxLayout;
 class QGridLayout;
 class QPushButton;
 class stackContentItem;
@@ -24,8 +25,11 @@ signals:
 public slots :
     void addContentItem();
 
+    // 自动刷新滚动区域的高度，这样当滚动条出来之后，增加item元素界面不会抖动
+    void setAutoLayout();
+
 private:
-    QGridLayout* content_layout_;
+    QVBoxLayout* content_layout_;
     QButtonGroup content_item_groups_;
 
     stackContentItem* default_item_;

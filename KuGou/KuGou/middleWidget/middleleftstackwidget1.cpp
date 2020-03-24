@@ -37,7 +37,7 @@ void middleLeftStackWidget1::InitUi() {
     scrollArea->setWidget(content_widget);
     scrollArea->setWidgetResizable(true);
 
-    content_layout_ = new QGridLayout(content_widget);
+    content_layout_ = new QVBoxLayout(content_widget);
     content_item_groups_.setParent(content_widget);
 
     default_item_ = new stackContentItem(QString::fromLocal8Bit("默认列表"), content_widget);
@@ -45,6 +45,7 @@ void middleLeftStackWidget1::InitUi() {
     content_layout_->addWidget(default_item_);
     default_item_->setEnabledMenuItem(false);
     connect(default_item_, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
+    connect(default_item_, SIGNAL(needSetLayout()), this, SLOT(setAutoLayout()));
     default_item_->setExpand(true);
 
     love_item_ = new stackContentItem(QString::fromLocal8Bit("我的最爱"), content_widget);
@@ -52,22 +53,14 @@ void middleLeftStackWidget1::InitUi() {
     content_layout_->addWidget(love_item_);
     love_item_->setEnabledMenuItem(false);
     connect(love_item_, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
+    connect(love_item_, SIGNAL(needSetLayout()), this, SLOT(setAutoLayout()));
     
-    auto item = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget);
-    content_layout_->addWidget(item);
-    content_item_groups_.addButton(item, content_item_id_++);
-    connect(item, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
-
-    auto item2 = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget);
-    content_layout_->addWidget(item2);
-    content_item_groups_.addButton(item2, content_item_id_++);
-    connect(item2, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
+    setAutoLayout();
 
     content_item_groups_.setExclusive(true);
 
     content_layout_->setAlignment(Qt::AlignTop);
-    content_layout_->setHorizontalSpacing(0);
-    content_layout_->setVerticalSpacing(0);
+    content_layout_->setSpacing(0);
     content_layout_->setContentsMargins(0, 0, 0, 0);
     content_widget->setLayout(content_layout_);
 
@@ -82,4 +75,34 @@ void middleLeftStackWidget1::InitConnect() {
 }
 
 void middleLeftStackWidget1::addContentItem() {
+    if (!content_layout_) return;
+    auto content_widget = qobject_cast<baseWidget *>(content_layout_->parentWidget());
+    if (!content_widget) return;
+
+    auto item = new stackContentItem(QString::fromLocal8Bit("新建列表%1").arg(content_item_id_ + 1), content_widget);
+    content_layout_->addWidget(item);
+    content_item_groups_.addButton(item, content_item_id_++);
+    connect(item, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
+    connect(item, SIGNAL(needSetLayout()), this, SLOT(setAutoLayout()));
+    item->setExpand(true);
+
+    // 刷新区域高度，这样避免滚动条出来之后，每次添加item元素界面都会抖动
+    setAutoLayout();
+}
+
+void middleLeftStackWidget1::setAutoLayout() {
+    if (!content_layout_) return;
+    auto content_widget = qobject_cast<baseWidget *>(content_layout_->parentWidget());
+    if (!content_widget) return;
+
+    int height = 0;
+    int count = content_layout_->count();
+
+    for (int i = 0; i < count; i++) {
+        if (content_layout_->itemAt(i) && content_layout_->itemAt(i)->widget()) {
+            height += content_layout_->itemAt(i)->widget()->height();
+        }
+    }
+
+    content_widget->setMinimumHeight(height);
 }

@@ -23,6 +23,7 @@ protected:
 
 signals:
     void addContentItem();
+    void needSetLayout();
 
 public slots :
     void onContentSelected(bool checked);
