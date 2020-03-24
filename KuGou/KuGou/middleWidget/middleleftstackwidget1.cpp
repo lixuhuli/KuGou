@@ -93,6 +93,7 @@ void middleLeftStackWidget1::addContentItem() {
 void middleLeftStackWidget1::delContentItem(stackContentItem* item) {
     if (!content_layout_) return;
     content_layout_->removeWidget(item);
+    item->deleteLater();
 
     setAutoLayout();
 }
