@@ -54,10 +54,13 @@ private:
     QColor line_color_;
     QColor bg_color_;
 
-    // 动画类
+    // 动画类 option动画
     QPropertyAnimation animation_;
     bool isanima_;
     int indicator_x_;
+
+    // stack动画
+    QPropertyAnimation stack_animation_;
 };
 
 #endif // MIDLEFTWIDGET_H

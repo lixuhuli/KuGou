@@ -12,6 +12,7 @@ midLeftWidget::midLeftWidget(QWidget *parent /*= nullptr*/)
  , option_groups_(this)
  , indicator_x_(0)
  , isanima_(false)
+ , stack_animation_(this, "geometry")
  , animation_(this, "indicator_x_")
  , stack_widget_page1_(this)
  , stack_widget_page2_(this) 
@@ -141,8 +142,10 @@ void midLeftWidget::InitConnect() {
 
 void midLeftWidget::initAnimation() {
     animation_.setDuration(200);
-
     connect(&animation_, SIGNAL(finished()), this, SLOT(animafinished()));
+
+    stack_animation_.setTargetObject(&stack_widget_);
+    stack_animation_.setDuration(200);
 }
 
 void midLeftWidget::onOptionPressed(int index) {
@@ -153,10 +156,25 @@ void midLeftWidget::onOptionPressed(int index) {
     auto prev_index = option_groups_.checkedId();
     if (index == prev_index) return;
 
+    // option¶¯»­
     isanima_ = true;
     animation_.setStartValue(prev_index * opt_width);
     animation_.setEndValue(index * opt_width);
     animation_.start();
+
+    // stack¶¯»­
+    auto stack_width = stack_widget_.width();
+    auto stack_height = stack_widget_.height();
+    if (index > prev_index) {
+        stack_animation_.setStartValue(QRect(stack_width, 40, stack_width, stack_height));
+        stack_animation_.setEndValue(QRect(0, 40, stack_width, stack_height));
+        stack_animation_.start();
+    }
+    else {
+        stack_animation_.setStartValue(QRect(-stack_width, 40, stack_width, stack_height));
+        stack_animation_.setEndValue(QRect(0, 40, stack_width, stack_height));
+        stack_animation_.start();
+    }
 }
 
 void midLeftWidget::animafinished() {
