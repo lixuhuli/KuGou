@@ -4,7 +4,7 @@
 
 bottomWidgets::bottomWidgets(QWidget *parent) 
     : baseWidget(parent)
-    , store_vol_(80)
+    , store_vol_(0)
     , volumn_widget_(parent)
     , play_slider_(Qt::Horizontal, this) {
     InitUi();
@@ -178,7 +178,7 @@ void bottomWidgets::InitConnect() {
     auto vol_slider = volumn_widget_.volumn_slider();
     if (vol_slider) {
         connect(vol_slider, SIGNAL(valueChanged(int)), this, SLOT(updateBtnStatus(int)));
-        vol_slider->setValue(store_vol_);
+        connect(vol_slider, SIGNAL(valueChanged(int)), parentWidget(), SLOT(setVolSliderStatus(int)));
     }
 }
 
@@ -239,4 +239,9 @@ void bottomWidgets::OnRadioClick(bool check) {
     if (!vol_slider) return;
 
     vol_slider->setValue(check ? 0 : store_vol_);
+}
+
+void bottomWidgets::setVoldSliderValue(int value) {
+    if (volumn_widget_.volumn_slider())
+        volumn_widget_.volumn_slider()->setValue(value);
 }

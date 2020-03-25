@@ -24,8 +24,9 @@ protected:
 signals:
 
 public slots:
-    void updateBtnStatus(int volume);
     void OnRadioClick(bool check);
+    void updateBtnStatus(int volume);
+    void setVoldSliderValue(int value);
 
 private:
     QPushButton m_btnnext;

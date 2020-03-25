@@ -47,13 +47,17 @@ private:
 
     baseWidget* tray_vol_widget_;
     Slider* tray_vol_slider_;
+    QRadioButton* tray_vol_btn_;
+    int store_vol_value_;
 
 signals:
 
 public slots :
     void systemTrayActived(QSystemTrayIcon::ActivationReason reason);
     void slot_quitApp();
+    void updateBtnStatus(int volume);
     void setVolSliderStatus(int volume);
+    void OnTrayVolClick(bool check);
 
 };
 

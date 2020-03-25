@@ -12,6 +12,8 @@ mainWnd::mainWnd(QWidget *parent)
     , top_widget_(this)
     , mid_widget_(this)
     , bottom_widget_(this)
+    , store_vol_value_(80)
+    , tray_vol_btn_(nullptr)
     , tray_vol_widget_(nullptr) 
     , tray_vol_slider_(nullptr) {
 
@@ -108,10 +110,10 @@ void mainWnd::InitVolItem() {
     QHBoxLayout *hlyout = new QHBoxLayout;
     hlyout->setAlignment(Qt::AlignLeft);
 
-    QRadioButton* tray_vol_btn = new QRadioButton;
-    tray_vol_btn->setFixedSize(16, 16);
-    tray_vol_btn->setCursor(QCursor(Qt::PointingHandCursor));
-    tray_vol_btn->setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 16 0 48;}"
+    tray_vol_btn_ = new QRadioButton;
+    tray_vol_btn_->setFixedSize(16, 16);
+    tray_vol_btn_->setCursor(QCursor(Qt::PointingHandCursor));
+    tray_vol_btn_->setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 16 0 48;}"
         "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 16 0 48;}"
         "QRadioButton::indicator::checked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 0 0 64;}"
         "QRadioButton::indicator::checked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 0 0 64;}"
@@ -124,7 +126,7 @@ void mainWnd::InitVolItem() {
         "QSlider::add-page:horizontal{background:rgb(209,209,209);}"
         "QSlider::handle:horizontal{background:rgb(104,104,104);width:8px;border-radius:4px;margin:-3px 0px -3px 0px;}");
 
-    hlyout->addWidget(tray_vol_btn);
+    hlyout->addWidget(tray_vol_btn_);
     hlyout->addWidget(tray_vol_slider_);
     hlyout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding, QSizePolicy::Fixed));
     hlyout->setContentsMargins(12, 0, 0, 0);
@@ -140,8 +142,11 @@ void mainWnd::InitVolItem() {
 void mainWnd::InitConnect() {
     connect(&system_tray_, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(systemTrayActived(QSystemTrayIcon::ActivationReason)));
 
-    connect(tray_vol_slider_, SIGNAL(valueChanged(int)), this, SLOT(setVolSliderStatus(int)));
-    tray_vol_slider_->setValue(80);
+    connect(tray_vol_btn_, SIGNAL(clicked(bool)), this, SLOT(OnTrayVolClick(bool)));
+    connect(tray_vol_slider_, SIGNAL(valueChanged(int)), this, SLOT(updateBtnStatus(int)));
+    connect(tray_vol_slider_, SIGNAL(valueChanged(int)), &bottom_widget_, SLOT(setVoldSliderValue(int)));
+
+    tray_vol_slider_->setValue(store_vol_value_);
 }
 
 void mainWnd::mouseDoubleClickEvent(QMouseEvent *e) {
@@ -185,6 +190,35 @@ void mainWnd::slot_quitApp() {
     close();
 }
 
-void mainWnd::setVolSliderStatus(int volume) {
+void mainWnd::updateBtnStatus(int volume) {
+    if (volume <= 0) {
+        tray_vol_btn_->setChecked(true);
+    }
+    else if (volume <= 30) {
+        tray_vol_btn_->setChecked(false);
+        tray_vol_btn_->setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 48 0 16;}"
+            "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 48 0 16;}"
+            "QRadioButton::indicator::checked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 0 0 64;}"
+            "QRadioButton::indicator::checked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 0 0 64;}"
+            "QRadioButton::indicator{width:16px;height:16px;}");
+    }
+    else {
+        tray_vol_btn_->setChecked(false);
+        tray_vol_btn_->setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 16 0 48;}"
+            "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 16 0 48;}"
+            "QRadioButton::indicator::checked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 0 0 64;}"
+            "QRadioButton::indicator::checked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 0 0 64;}"
+            "QRadioButton::indicator{width:16px;height:16px;}");
+    }
 
+    if (volume != 0) store_vol_value_ = volume;
+}
+
+void mainWnd::setVolSliderStatus(int volume) {
+    if (tray_vol_slider_) tray_vol_slider_->setValue(volume);
+}
+
+void mainWnd::OnTrayVolClick(bool check) {
+    if (!tray_vol_slider_) return;
+    tray_vol_slider_->setValue(check ? 0 : store_vol_value_);
 }
