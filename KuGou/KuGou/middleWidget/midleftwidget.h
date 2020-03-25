@@ -4,6 +4,7 @@
 #include "baseWnd/basewidget.h"
 #include <QButtonGroup>
 #include <QStackedWidget>
+#include <QPropertyAnimation>
 #include "middleleftstackwidget2.h"
 #include "middleleftstackwidget3.h"
 #include "middleleftstackwidget1.h"
@@ -13,12 +14,16 @@
 
 class midLeftWidget : public baseWidget {
     Q_OBJECT
+    Q_PROPERTY(int indicator_x_ READ getValue WRITE setValue)
 public:
     explicit midLeftWidget(QWidget *parent = nullptr);
     virtual ~midLeftWidget() {}
 
     void setTransStatus(bool isTrans);
     void setWidgetOpacity(int value);
+
+    int getValue() { return indicator_x_; }
+    void setValue(int i) { indicator_x_ = i; update(); }
 
 protected:
     void InitUi();
@@ -30,6 +35,8 @@ protected:
 signals:
 
 public slots :
+    void onOptionPressed(int);
+    void animafinished();
 
 private:
     QButtonGroup option_groups_;
@@ -46,6 +53,11 @@ private:
 
     QColor line_color_;
     QColor bg_color_;
+
+    // ∂Øª≠¿‡
+    QPropertyAnimation animation_;
+    bool isanima_;
+    int indicator_x_;
 };
 
 #endif // MIDLEFTWIDGET_H

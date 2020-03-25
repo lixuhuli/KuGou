@@ -10,6 +10,9 @@ midLeftWidget::midLeftWidget(QWidget *parent /*= nullptr*/)
  , line_color_(230, 230, 230)
  , bg_color_(255, 255, 255, 100)
  , option_groups_(this)
+ , indicator_x_(0)
+ , isanima_(false)
+ , animation_(this, "indicator_x_")
  , stack_widget_page1_(this)
  , stack_widget_page2_(this) 
  , stack_widget_page3_(this) 
@@ -128,7 +131,7 @@ void midLeftWidget::InitUi() {
 void midLeftWidget::InitConnect() {
     opt_pic_ = QPixmap(":/image/middlewidget/indicator.png");
 
-    connect(&option_groups_, SIGNAL(buttonPressed(int)), &stack_widget_, SLOT(setCurrentIndex(int)));
+    connect(&option_groups_, SIGNAL(buttonPressed(int)), this, SLOT(onOptionPressed(int)));
 
     // 暂时测试用  后续会删掉
     int check_id = 0;
@@ -137,6 +140,27 @@ void midLeftWidget::InitConnect() {
 }
 
 void midLeftWidget::initAnimation() {
+    animation_.setDuration(200);
+
+    connect(&animation_, SIGNAL(finished()), this, SLOT(animafinished()));
+}
+
+void midLeftWidget::onOptionPressed(int index) {
+    stack_widget_.setCurrentIndex(index);
+
+    // start Animation
+    auto opt_width = option_groups_.button(0)->width();
+    auto prev_index = option_groups_.checkedId();
+    if (index == prev_index) return;
+
+    isanima_ = true;
+    animation_.setStartValue(prev_index * opt_width);
+    animation_.setEndValue(index * opt_width);
+    animation_.start();
+}
+
+void midLeftWidget::animafinished() {
+    isanima_ = false;
 }
 
 void midLeftWidget::paintEvent(QPaintEvent *e) {
@@ -153,12 +177,20 @@ void midLeftWidget::paintEvent(QPaintEvent *e) {
     auto option = qobject_cast<QPushButton *>(option_groups_.checkedButton());
     if (!option || opt_pic_.isNull()) return;
 
-    auto x = option->pos().x() + (option->width() - opt_pic_.width()) / 2;
-    auto y = option->pos().y() + option->height() - opt_pic_.height();
+    if (isanima_) {
+        auto x = indicator_x_ + (option->width() - opt_pic_.width()) / 2;
+        auto y = option->pos().y() + option->height() - opt_pic_.height();
 
-    painter.drawLine(0, option->height() - 1, x, option->height() - 1);
-    painter.drawLine(x + opt_pic_.width(), option->height() - 1, width() - 1, option->height() - 1);
+        painter.drawLine(0, option->height() - 1, x, option->height() - 1);
+        painter.drawLine(x + opt_pic_.width(), option->height() - 1, width() - 1, option->height() - 1);
+        painter.drawPixmap(x, y, opt_pic_);
+    }
+    else {
+        auto x = option->pos().x() + (option->width() - opt_pic_.width()) / 2;
+        auto y = option->pos().y() + option->height() - opt_pic_.height();
 
-    painter.drawPixmap(x, y, opt_pic_);
-
+        painter.drawLine(0, option->height() - 1, x, option->height() - 1);
+        painter.drawLine(x + opt_pic_.width(), option->height() - 1, width() - 1, option->height() - 1);
+        painter.drawPixmap(x, y, opt_pic_);
+    }
 }
