@@ -6,12 +6,19 @@
 #include <QPushButton>
 #include <QPainter>
 #include "baseWnd/basewidget.h"
+#include <QMouseEvent>
+#include <QDrag>
+#include <QMimeData>
 
 stackContentItem::stackContentItem(const QString& name, QWidget *parent /*= nullptr*/)
   : QPushButton(parent)
   , top_button_(nullptr)
   , leave_widget_(nullptr)
-  , lbl_play_list_(nullptr) {
+  , lbl_play_list_(nullptr)
+  , can_drag_move_(true)
+  , draw_mode_(unDraw)
+  , left_btn_pressed_(false)
+  , pos_before_drag_(0, 0) {
     setCheckable(true);
     play_list_name_ = name;
 
@@ -37,6 +44,8 @@ void stackContentItem::InitUi() {
         "#top_button::checked{background-image:url(:/image/middlewidget/indicator_down (1).png);background-repeat:repeat-no;background-position:left;}");
     connect(this, SIGNAL(toggled(bool)), this, SLOT(onContentSelected(bool)));
     connect(top_button_, SIGNAL(toggled(bool)), this, SLOT(onTopButtonSelected(bool)));
+    top_button_->setAcceptDrops(true);
+    top_button_->installEventFilter(this);
 
     QHBoxLayout *hlyout = new QHBoxLayout();
 
@@ -159,6 +168,8 @@ void stackContentItem::setEnabledMenuItem(bool isSetting/* = false*/) {
 
     action = m_menu.actions().value(13);
     if (action) action->setEnabled(isSetting);
+
+    can_drag_move_ = (isSetting == true);
 }
 
 void stackContentItem::setExpand(bool expand) {
@@ -172,6 +183,101 @@ void stackContentItem::paintEvent(QPaintEvent *e) {
     QPainter p(this);
     p.setPen(QColor(230, 230, 230));
     p.drawLine(0, height() - 1, width() - 1, height() - 1);
+}
+
+bool stackContentItem::eventFilter(QObject *o, QEvent *e) {
+    if (o == top_button_) {
+        if (e->type() == QEvent::MouseButtonPress) {
+            auto event = (QMouseEvent*)e;
+            if (event && event->button() == Qt::LeftButton) {
+                pos_before_drag_ = event->pos();
+                left_btn_pressed_ = true;
+            }
+            return false;
+        }
+        else if (e->type() == QEvent::MouseMove) {
+            auto event = (QMouseEvent*)e;
+            if (event && left_btn_pressed_) {
+                QRect re(pos_before_drag_.x() - 2, pos_before_drag_.y() - 2, pos_before_drag_.x() + 2, pos_before_drag_.y() + 2);
+                if (!re.contains(event->pos()) && can_drag_move_) {
+                    QDrag *drag = new QDrag(top_button_); // ×Ô¶¯ÊÍ·Å
+                    if (!drag) return false;
+
+                    QMimeData *data = new QMimeData;
+                    drag->setMimeData(data);
+
+                    QPixmap pixmap = this->grab(top_button_->rect());
+                    drag->setHotSpot(QPoint(0, top_button_->height() / 2));
+                    drag->setPixmap(pixmap);
+                    drag->exec(Qt::MoveAction);
+
+                    drag->deleteLater();
+                    data->deleteLater();
+                }
+
+            }
+
+            return false;
+        }
+        else if (e->type() == QEvent::MouseButtonRelease) {
+            left_btn_pressed_ = false;
+
+            auto event = (QMouseEvent*)e;
+            if (event && event->button() == Qt::RightButton) {
+                m_menu.exec(QCursor::pos());
+            }
+
+            return false;
+        }
+        else if (e->type() == QEvent::DragEnter) {
+            auto event = (QDragEnterEvent*)e;
+            if (event) {
+                if (can_drag_move_) {
+                    event->setDropAction(Qt::MoveAction);
+                    event->accept();
+                }
+                else event->ignore();
+            }
+        }
+        else if (e->type() == QEvent::Drop) {
+            auto event = (QDropEvent*)e;
+            if (event) {
+                draw_mode_ = unDraw;
+                top_button_->update();
+            }
+        }
+        else if (e->type() == QEvent::DragMove) {
+            auto event = (QDragMoveEvent*)e;
+            if (event) {
+                if (event->pos().y() < top_button_->height() / 2) {
+                    draw_mode_ = drawTop;
+                    update();
+                } 
+                else {
+                    draw_mode_ = drawbottom;
+                    update();
+                }
+            }
+        }
+        else if (e->type() == QEvent::DragLeave) {
+            auto event = (QDragLeaveEvent*)e;
+            if (event) {
+                draw_mode_ = unDraw;
+                top_button_->update();
+            }
+        }
+        else if (e->type() == QEvent::Paint) {
+            auto event = (QPaintEvent*)e;
+            if (!event || draw_mode_ == unDraw) return false;
+
+            QPainter p(top_button_);
+            if (draw_mode_ == drawTop) p.drawLine(0, 0, top_button_->width(), 0);
+            else p.drawLine(0, top_button_->height() - 1, top_button_->width(), top_button_->height() - 1);
+        }
+
+    }
+
+    return QPushButton::eventFilter(o, e);
 }
 
 void stackContentItem::onContentSelected(bool checked) {

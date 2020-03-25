@@ -4,6 +4,9 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QMenu>
+#include <QEvent>
+
+enum eDrawMode { unDraw, drawTop, drawbottom };
 
 class stackContentItem : public QPushButton {
     Q_OBJECT
@@ -20,6 +23,7 @@ protected:
     void initMenu();
 
     virtual void paintEvent(QPaintEvent *) override;
+    virtual bool eventFilter(QObject *, QEvent *) override;
 
 signals:
     void addContentItem();
@@ -39,6 +43,10 @@ private:
     QPushButton* top_button_;
     QMenu m_menu;
 
+    QPoint pos_before_drag_;
+    bool left_btn_pressed_;
+    bool can_drag_move_;
+    eDrawMode draw_mode_;
 };
 
 #endif // STACKCONTENTITEM_H
