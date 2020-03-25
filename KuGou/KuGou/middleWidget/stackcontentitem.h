@@ -29,6 +29,7 @@ signals:
     void addContentItem();
     void delContentItem(stackContentItem*);
     void needSetLayout();
+    void addDragToOther(stackContentItem* drag_item, stackContentItem* item, bool next);
 
 public slots :
     void onContentSelected(bool checked);

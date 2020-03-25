@@ -84,6 +84,7 @@ void middleLeftStackWidget1::addContentItem() {
     connect(item, SIGNAL(addContentItem()), this, SLOT(addContentItem()));
     connect(item, SIGNAL(needSetLayout()), this, SLOT(setAutoLayout()));
     connect(item, SIGNAL(delContentItem(stackContentItem*)), this, SLOT(delContentItem(stackContentItem*)));
+    connect(item, SIGNAL(addDragToOther(stackContentItem*, stackContentItem*, bool)), this, SLOT(addDragItemToItem(stackContentItem*, stackContentItem*, bool)));
     item->setExpand(true);
 
     // 刷新区域高度，这样避免滚动条出来之后，每次添加item元素界面都会抖动
@@ -118,4 +119,12 @@ void middleLeftStackWidget1::resizeEvent(QResizeEvent *e) {
 
     if (!content_widget_) return;
     content_widget_->setFixedWidth(width());
+}
+
+void middleLeftStackWidget1::addDragItemToItem(stackContentItem* drag_item, stackContentItem* item, bool next) {
+    if (!content_layout_ || !drag_item || !item) return;
+
+    content_layout_->removeWidget(drag_item);
+    auto index = content_layout_->indexOf(item);
+    content_layout_->insertWidget(next ? (index + 1) : index, drag_item);
 }

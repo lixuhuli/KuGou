@@ -242,6 +242,8 @@ bool stackContentItem::eventFilter(QObject *o, QEvent *e) {
         else if (e->type() == QEvent::Drop) {
             auto event = (QDropEvent*)e;
             if (event) {
+                auto drag_item = qobject_cast<stackContentItem*>(event->source()->parent());
+                addDragToOther(drag_item, this, (draw_mode_ == drawbottom ? true : false));
                 draw_mode_ = unDraw;
                 top_button_->update();
             }

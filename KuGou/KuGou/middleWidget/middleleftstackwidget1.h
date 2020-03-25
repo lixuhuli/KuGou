@@ -30,6 +30,7 @@ public slots :
 
     // 自动刷新滚动区域的高度，这样当滚动条出来之后，增加item元素界面不会抖动
     void setAutoLayout();
+    void addDragItemToItem(stackContentItem*, stackContentItem*, bool);
 
 private:
     QVBoxLayout* content_layout_;
