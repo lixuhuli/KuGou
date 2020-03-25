@@ -128,3 +128,9 @@ void middleLeftStackWidget1::addDragItemToItem(stackContentItem* drag_item, stac
     auto index = content_layout_->indexOf(item);
     content_layout_->insertWidget(next ? (index + 1) : index, drag_item);
 }
+
+void middleLeftStackWidget1::updateLineColor(const QColor& color) {
+    stackContentItem::line_color_ = color;
+
+    update();
+}

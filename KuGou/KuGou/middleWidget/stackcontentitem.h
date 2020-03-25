@@ -9,6 +9,7 @@
 enum eDrawMode { unDraw, drawTop, drawbottom };
 
 class stackContentItem : public QPushButton {
+    friend class middleLeftStackWidget1;
     Q_OBJECT
 public:
     explicit stackContentItem(const QString& name, QWidget *parent = nullptr);
@@ -48,6 +49,8 @@ private:
     bool left_btn_pressed_;
     bool can_drag_move_;
     eDrawMode draw_mode_;
+
+    static QColor line_color_;
 };
 
 #endif // STACKCONTENTITEM_H

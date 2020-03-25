@@ -28,6 +28,7 @@ midLeftWidget::midLeftWidget(QWidget *parent /*= nullptr*/)
 void midLeftWidget::setTransStatus(bool isTrans) {
     m_isDrawVerticalLine = (isTrans ? false : true);
     line_color_ = (isTrans ? QColor(55, 55, 55, 55) : QColor(230, 230, 230));
+    stack_widget_page1_.updateLineColor(line_color_);
     update();
 }
 

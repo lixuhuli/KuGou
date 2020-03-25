@@ -14,6 +14,8 @@ public:
     explicit middleLeftStackWidget1(QWidget *parent = nullptr);
     virtual ~middleLeftStackWidget1() {}
 
+    void updateLineColor(const QColor& color);
+
 protected:
     void InitUi();
     void InitConnect();

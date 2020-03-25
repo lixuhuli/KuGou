@@ -10,6 +10,8 @@
 #include <QDrag>
 #include <QMimeData>
 
+QColor stackContentItem::line_color_ = QColor(230, 230, 230);
+
 stackContentItem::stackContentItem(const QString& name, QWidget *parent /*= nullptr*/)
   : QPushButton(parent)
   , top_button_(nullptr)
@@ -181,7 +183,7 @@ void stackContentItem::paintEvent(QPaintEvent *e) {
     QPushButton::paintEvent(e);
 
     QPainter p(this);
-    p.setPen(QColor(230, 230, 230));
+    p.setPen(line_color_);
     p.drawLine(0, height() - 1, width() - 1, height() - 1);
 }
 
