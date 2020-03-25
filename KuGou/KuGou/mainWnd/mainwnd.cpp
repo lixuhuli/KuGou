@@ -68,8 +68,12 @@ void mainWnd::InitTrayMenu() {
         "QMenu::item:selected{color: white;background-color: rgb(22, 154, 243);}"
         "QMenu::icon{position: absolute;left: 12px;}"
         "QMenu::separator{height:1px;background: rgb(209,209,209);margin:4px 0px 4px 0px;}").arg(QString::fromLocal8Bit("Î¢ÈíÑÅºÚ")));
-    tray_menu_.setFixedHeight(200);
+    tray_menu_.setFixedWidth(200);
     tray_menu_.setContentsMargins(4, 5, 4, 10);
+
+    InitPlayItem();
+
+    tray_menu_.addSeparator();
 
     InitVolItem();
 
@@ -137,6 +141,66 @@ void mainWnd::InitVolItem() {
     act_vol->setDefaultWidget(tray_vol_widget_);
     tray_menu_.addAction(act_vol);
     tray_vol_widget_->raise();
+}
+
+void mainWnd::InitPlayItem() {
+    auto act_play = new QWidgetAction(&tray_menu_);
+    if (!act_play) return;
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    auto tray_play_widget = new baseWidget(&tray_menu_);
+
+    tray_play_widget->setFixedSize(190, 65);
+
+    QVBoxLayout *vlyout = new QVBoxLayout;
+
+    QHBoxLayout *hlyout = new QHBoxLayout;
+
+    QPushButton* backward_button = new QPushButton;
+    backward_button->setFixedSize(32, 32);
+    backward_button->setFlat(true);
+    backward_button->setCursor(QCursor(Qt::PointingHandCursor));
+    backward_button->setStyleSheet("QPushButton{border-image:url(:/image/trayMenu/menu_previous (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/trayMenu/menu_previous (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/trayMenu/menu_previous (3).png);}");
+
+    QPushButton* play_button = new QPushButton;
+    play_button->setFixedSize(32, 32);
+    play_button->setFlat(true);
+    play_button->setCursor(QCursor(Qt::PointingHandCursor));
+    play_button->setStyleSheet("QPushButton{border-image:url(:/image/trayMenu/menu_play (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/trayMenu/menu_play (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/trayMenu/menu_play (3).png);}");
+
+    QPushButton* forward_button = new QPushButton;
+    forward_button->setFixedSize(32, 32);
+    forward_button->setFlat(true);
+    forward_button->setCursor(QCursor(Qt::PointingHandCursor));
+    forward_button->setStyleSheet("QPushButton{border-image:url(:/image/trayMenu/menu_next (1).png);}"
+        "QPushButton::hover{border-image:url(:/image/trayMenu/menu_next (2).png);}"
+        "QPushButton::pressed{border-image:url(:/image/trayMenu/menu_next (3).png);}");
+
+    hlyout->addWidget(backward_button);
+    hlyout->addWidget(play_button);
+    hlyout->addWidget(forward_button);
+    hlyout->setSpacing(0);
+    hlyout->setContentsMargins(0, 0, 0, 0);
+
+
+    QLabel* lbl_music_name = new QLabel(QString::fromLocal8Bit("¼«ÊÓÌý ´«²¥ºÃÒôÀÖ"));
+    lbl_music_name->setStyleSheet("color: rgb(134,134,134);");
+    lbl_music_name->setFixedHeight(20);
+    lbl_music_name->setEnabled(false);
+
+    vlyout->addLayout(hlyout);
+    vlyout->addWidget(lbl_music_name, 0, Qt::AlignHCenter);
+    vlyout->setSpacing(2);
+    vlyout->setContentsMargins(0, 2, 0, 0);
+    tray_play_widget->setLayout(vlyout);
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    act_play->setDefaultWidget(tray_play_widget);
+    tray_menu_.addAction(act_play);
 }
 
 void mainWnd::InitConnect() {

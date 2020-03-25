@@ -29,6 +29,7 @@ protected:
     void InitConnect();
     void InitTrayMenu();
     void InitVolItem();
+    void InitPlayItem();
 
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *) override;
