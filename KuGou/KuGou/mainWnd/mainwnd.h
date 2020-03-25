@@ -30,6 +30,7 @@ protected:
     void InitTrayMenu();
     void InitVolItem();
     void InitPlayItem();
+    void InitAnmation();
 
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *) override;
@@ -50,6 +51,10 @@ private:
     Slider* tray_vol_slider_;
     QRadioButton* tray_vol_btn_;
     int store_vol_value_;
+
+    // 增加关闭动画
+    QPropertyAnimation  close_opacity_animation_;
+    QPropertyAnimation close_move_animation_;
 
 signals:
 

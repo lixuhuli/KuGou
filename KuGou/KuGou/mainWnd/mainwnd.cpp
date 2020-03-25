@@ -15,7 +15,9 @@ mainWnd::mainWnd(QWidget *parent)
     , store_vol_value_(80)
     , tray_vol_btn_(nullptr)
     , tray_vol_widget_(nullptr) 
-    , tray_vol_slider_(nullptr) {
+    , tray_vol_slider_(nullptr)
+    , close_opacity_animation_(this, "windowOpacity")
+    , close_move_animation_(this, "geometry") {
 
     // 增加属性  使点击任务栏可以最大化和最小化
     setWindowFlags(windowFlags() | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
@@ -31,6 +33,7 @@ mainWnd::mainWnd(QWidget *parent)
     InitUi();
     InitTrayMenu();
     InitConnect();
+    InitAnmation();
 }
 
 mainWnd::~mainWnd() {
@@ -203,6 +206,15 @@ void mainWnd::InitPlayItem() {
     tray_menu_.addAction(act_play);
 }
 
+void mainWnd::InitAnmation() {
+    close_move_animation_.setDuration(1300);
+    close_move_animation_.setEasingCurve(QEasingCurve::OutQuad);
+
+    close_opacity_animation_.setDuration(1300);
+    close_opacity_animation_.setEasingCurve(QEasingCurve::OutQuad);
+    connect(&close_opacity_animation_, SIGNAL(finished()), this, SLOT(close()));
+}
+
 void mainWnd::InitConnect() {
     connect(&system_tray_, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(systemTrayActived(QSystemTrayIcon::ActivationReason)));
 
@@ -251,7 +263,18 @@ void mainWnd::systemTrayActived(QSystemTrayIcon::ActivationReason reason) {
 
 void mainWnd::slot_quitApp() {
     system_tray_.hide();
-    close();
+
+    if (!isVisible()) close();
+
+    setMinimumSize(0, 0);
+    auto rc = geometry();
+    close_move_animation_.setStartValue(rc);
+    close_move_animation_.setEndValue(QRectF(rc.x() / 8, rc.y() / 8, rc.width() / 8, rc.height() / 8));
+    close_move_animation_.start();
+
+    close_opacity_animation_.setStartValue(1.0);
+    close_opacity_animation_.setEndValue(0.0);
+    close_opacity_animation_.start();
 }
 
 void mainWnd::updateBtnStatus(int volume) {
