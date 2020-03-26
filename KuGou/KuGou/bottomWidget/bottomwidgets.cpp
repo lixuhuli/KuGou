@@ -4,7 +4,7 @@
 
 bottomWidgets::bottomWidgets(QWidget *parent) 
     : baseWidget(parent)
-    , store_vol_(0)
+    , store_vol_(80)
     , volumn_widget_(parent)
     , play_slider_(Qt::Horizontal, this) {
     InitUi();
@@ -145,6 +145,7 @@ void bottomWidgets::InitUi() {
         "QRadioButton::indicator::checked{border-image:url(:/image/bottomwidget/btn_vol (1).png) 0 0 0 80;}"
         "QRadioButton::indicator::checked:hover{border-image:url(:/image/bottomwidget/btn_vol (2).png) 0 0 0 80;}"
         "QRadioButton::indicator{width:20px;height:20px;}");
+    m_btnvol.setChecked(true);
     m_btnvol.installEventFilter(this);
 
     layout3->addWidget(&m_btnfavorite);

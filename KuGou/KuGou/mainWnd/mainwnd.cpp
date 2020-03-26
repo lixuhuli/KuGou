@@ -3,6 +3,8 @@
 #include <QLabel>
 #include <QSize>
 #include <QWidgetAction>
+#include <QApplication>
+#include <QSettings>
 
 QMutex mainWnd::mutex_;
 QAtomicPointer<mainWnd> mainWnd::main_wnd_ = nullptr;
@@ -34,6 +36,7 @@ mainWnd::mainWnd(QWidget *parent)
     InitTrayMenu();
     InitConnect();
     InitAnmation();
+    readSetting();
 }
 
 mainWnd::~mainWnd() {
@@ -120,6 +123,7 @@ void mainWnd::InitVolItem() {
     tray_vol_btn_ = new QRadioButton;
     tray_vol_btn_->setFixedSize(16, 16);
     tray_vol_btn_->setCursor(QCursor(Qt::PointingHandCursor));
+    tray_vol_btn_->setChecked(true);
     tray_vol_btn_->setStyleSheet("QRadioButton::indicator::unchecked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 16 0 48;}"
         "QRadioButton::indicator::unchecked:hover{border-image:url(:/image/trayMenu/menu_vol (2).png) 0 16 0 48;}"
         "QRadioButton::indicator::checked{border-image:url(:/image/trayMenu/menu_vol (1).png) 0 0 0 64;}"
@@ -221,8 +225,6 @@ void mainWnd::InitConnect() {
     connect(tray_vol_btn_, SIGNAL(clicked(bool)), this, SLOT(OnTrayVolClick(bool)));
     connect(tray_vol_slider_, SIGNAL(valueChanged(int)), this, SLOT(updateBtnStatus(int)));
     connect(tray_vol_slider_, SIGNAL(valueChanged(int)), &bottom_widget_, SLOT(setVoldSliderValue(int)));
-
-    tray_vol_slider_->setValue(store_vol_value_);
 }
 
 void mainWnd::mouseDoubleClickEvent(QMouseEvent *e) {
@@ -263,6 +265,8 @@ void mainWnd::systemTrayActived(QSystemTrayIcon::ActivationReason reason) {
 
 void mainWnd::slot_quitApp() {
     system_tray_.hide();
+
+    writeVolToConfig();
 
     if (!isVisible()) close();
 
@@ -308,4 +312,25 @@ void mainWnd::setVolSliderStatus(int volume) {
 void mainWnd::OnTrayVolClick(bool check) {
     if (!tray_vol_slider_) return;
     tray_vol_slider_->setValue(check ? 0 : store_vol_value_);
+}
+
+void mainWnd::readSetting() {
+    QString file_path = QApplication::applicationDirPath() + "/config.ini";
+    QSettings setting(file_path, QSettings::IniFormat, 0);
+
+    setting.beginGroup("mainWindow");
+    int vol_value = setting.value("volume", 80).toInt();
+    tray_vol_slider_->setValue(vol_value);
+
+    setting.endGroup();
+}
+
+void mainWnd::writeVolToConfig() {
+    QString file_path = QApplication::applicationDirPath() + "/config.ini";
+    QSettings setting(file_path, QSettings::IniFormat, 0);
+
+    setting.beginGroup("mainWindow");
+    setting.setValue("volume", tray_vol_slider_->value());
+
+    setting.endGroup();
 }

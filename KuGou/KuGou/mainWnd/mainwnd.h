@@ -37,6 +37,10 @@ protected:
     virtual void closeEvent(QCloseEvent *event) override;
 
 private:
+    void readSetting();
+    void writeVolToConfig();
+
+private:
     static QMutex mutex_;                          // 实例互斥锁。
     static QAtomicPointer<mainWnd> main_wnd_;      // <使用原子指针,默认初始化为0。
 
