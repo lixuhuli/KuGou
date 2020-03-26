@@ -314,6 +314,11 @@ void mainWnd::OnTrayVolClick(bool check) {
     tray_vol_slider_->setValue(check ? 0 : store_vol_value_);
 }
 
+void mainWnd::setSkin(const QString &str) {
+    baseWindow::setSkin(str);
+    writeSkinToConfig(str);
+}
+
 void mainWnd::readSetting() {
     QString file_path = QApplication::applicationDirPath() + "/config.ini";
     QSettings setting(file_path, QSettings::IniFormat, 0);
@@ -321,6 +326,9 @@ void mainWnd::readSetting() {
     setting.beginGroup("mainWindow");
     int vol_value = setting.value("volume", 80).toInt();
     tray_vol_slider_->setValue(vol_value);
+
+    QString skin_path =  setting.value("background", ":/ID_DEFAULT_SKIN_PIC").toString();
+    main_widget_.setSkinPic(skin_path);
 
     setting.endGroup();
 }
@@ -331,6 +339,14 @@ void mainWnd::writeVolToConfig() {
 
     setting.beginGroup("mainWindow");
     setting.setValue("volume", tray_vol_slider_->value());
+    setting.endGroup();
+}
 
+void mainWnd::writeSkinToConfig(const QString& str) {
+    QString file_path = QApplication::applicationDirPath() + "/config.ini";
+    QSettings setting(file_path, QSettings::IniFormat, 0);
+
+    setting.beginGroup("mainWindow");
+    setting.setValue("background", str);
     setting.endGroup();
 }

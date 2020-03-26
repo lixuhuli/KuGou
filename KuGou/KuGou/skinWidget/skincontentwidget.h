@@ -29,6 +29,9 @@ signals:
 
     public slots :
 
+public:
+    void updateItemSelected(const QString& skin);
+
 private:
     QButtonGroup skin_item_groups_;
     QSignalMapper item_mapper_;

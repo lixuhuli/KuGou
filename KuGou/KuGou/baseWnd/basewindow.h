@@ -22,6 +22,8 @@ public:
     void set_contents_margins(const QRect& rc);
     const QRect& contents_margins() { return contents_margins_; }
 
+    const QString& skin() { return main_widget_.skinPath(); }
+
 private:
     QRect contents_margins_;
 };

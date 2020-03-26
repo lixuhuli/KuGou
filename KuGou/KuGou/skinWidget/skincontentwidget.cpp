@@ -136,3 +136,11 @@ QPushButton* skinContentWidget::createSkinContentItem(const QString& file_path) 
 
     return item;
 }
+
+void skinContentWidget::updateItemSelected(const QString& skin) {
+    auto object = item_mapper_.mapping(skin);
+    if (!object) return;
+
+    auto item = qobject_cast<skinContentItem*>(object);
+    if (item) item->setChecked(true);
+}

@@ -39,6 +39,7 @@ protected:
 private:
     void readSetting();
     void writeVolToConfig();
+    void writeSkinToConfig(const QString& str);
 
 private:
     static QMutex mutex_;                          // ÊµÀý»¥³âËø¡£
@@ -68,6 +69,7 @@ public slots :
     void updateBtnStatus(int volume);
     void setVolSliderStatus(int volume);
     void OnTrayVolClick(bool check);
+    void setSkin(const QString &str);
 
 };
 

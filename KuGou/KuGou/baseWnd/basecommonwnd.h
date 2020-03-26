@@ -22,6 +22,9 @@ protected:
 public slots:
     void setSkin(const QString &str);
 
+public:
+    const QString& skin() { return main_widget_.skinPath(); }
+
 private:
     int border_;
     eCursorPressedState cursol_pressed_state_;
